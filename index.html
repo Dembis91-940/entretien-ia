@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Entretien IA — Le bon candidat se perd dans les mauvaises questions.</title>
+<meta name="description" content="Checklist d'entretien d'embauche propulsée par IA : 15 questions structurées par poste, grille de notation 1-5 sans biais, verdict automatique. Un entretien structuré, noté sans biais, en 30 minutes. Dès 19 €.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:site_name" content="Entretien IA">
+<meta property="og:title" content="Entretien IA — Le bon candidat se perd dans les mauvaises questions.">
+<meta property="og:description" content="Un entretien structuré, noté sans biais, en 30 minutes. Checklist PDF, générateur de questions par poste (8 postes, 15 questions), grille 1-5, checklist anti-biais. Dès 19 €.">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Entretien IA — Le bon candidat se perd dans les mauvaises questions.">
+<meta name="twitter:description" content="Un entretien structuré, noté sans biais, en 30 minutes. Checklist PDF + générateur de questions par poste + grilles de notation anti-biais.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": "Entretien IA",
+  "description": "Checklist d'entretien d'embauche propulsée par IA : 15 questions structurées par poste, grille de notation 1-5, checklist anti-biais et export PDF. Un entretien structuré, noté sans biais, en 30 minutes.",
+  "brand": { "@type": "Brand", "name": "Entretien IA" },
+  "offers": [
+    { "@type": "Offer", "name": "Checklist PDF + 5 grilles", "price": "19", "priceCurrency": "EUR", "availability": "https://schema.org/InStock" },
+    { "@type": "Offer", "name": "Pack Recruteur", "price": "39", "priceCurrency": "EUR", "availability": "https://schema.org/InStock" },
+    { "@type": "Offer", "name": "Pack RH complet", "price": "79", "priceCurrency": "EUR", "availability": "https://schema.org/InStock" }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    { "@type": "Question", "name": "À qui s'adresse Entretien IA ?", "acceptedAnswer": { "@type": "Answer", "text": "Aux recruteurs, responsables RH, fondateurs et managers qui embauchent en PME, start-up ou en indépendant. Si vous menez des entretiens sans trame, c'est fait pour vous." } },
+    { "@type": "Question", "name": "Le générateur de questions est-il vraiment gratuit ?", "acceptedAnswer": { "@type": "Answer", "text": "Oui : l'outil en ligne est 100 % gratuit et sans inscription. 8 postes, 15 questions structurées par compétence, grille de notation 1-5, checklist anti-biais et export PDF, directement dans le navigateur." } },
+    { "@type": "Question", "name": "Comment se passe la livraison ?", "acceptedAnswer": { "@type": "Answer", "text": "Après votre commande, vous recevez un email de confirmation, puis les fichiers (PDF + grilles) par email sous 24-48 h ouvrées. Le Pack RH inclut une priorité de réponse sous 24 h." } },
+    { "@type": "Question", "name": "La grille de notation élimine-t-elle vraiment les biais ?", "acceptedAnswer": { "@type": "Answer", "text": "Elle structure l'évaluation : mêmes questions, mêmes critères, mêmes seuils pour tous les candidats, plus 7 vérifications anti-biais. Elle ne remplace pas votre jugement, elle le fiabilise." } },
+    { "@type": "Question", "name": "Y a-t-il une garantie ?", "acceptedAnswer": { "@type": "Answer", "text": "Oui : 14 jours satisfait ou remboursé, sans condition ni justification." } },
+    { "@type": "Question", "name": "Mes données sont-elles protégées ?", "acceptedAnswer": { "@type": "Answer", "text": "Vos coordonnées ne servent qu'au traitement de votre commande. Elles ne sont ni revendues ni utilisées à des fins publicitaires (conforme RGPD)." } }
+  ]
+}
+</script>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  :root{
+    --bg:#f0e6d6;            /* beige sable */
+    --bg-soft:#f7f0e3;       /* beige plus clair */
+    --surface:#fffdf8;       /* cartes */
+    --ink:#2c1e1a;           /* encre chaude */
+    --ink-dim:#6b5748;       /* paragraphes */
+    --ink-faint:#9c8577;     /* métadonnées */
+    --grenat:#800020;        /* accent principal */
+    --grenat-deep:#5a0017;   /* survol */
+    --grenat-soft:rgba(128,0,32,.07);
+    --gold:#c9a227;          /* or clair */
+    --gold-soft:#e3c97e;
+    --line:rgba(128,0,32,.14);
+    --line-gold:rgba(201,162,39,.5);
+    --serif:'Playfair Display',Georgia,'Times New Roman',serif;
+    --sans:'Inter',-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;
+    --shadow:0 10px 34px rgba(44,30,26,.08);
+  }
+  html { scroll-behavior:smooth; }
+  body {
+    font-family:var(--sans);
+    background:radial-gradient(1000px 520px at 84% -8%, rgba(201,162,39,.17), transparent 62%), var(--bg);
+    color:var(--ink);
+    line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap { max-width:1120px; margin:0 auto; padding:0 1.5rem; }
+  img, svg { max-width:100%; }
+
+  /* ---------- Navigation ---------- */
+  nav {
+    position:sticky; top:0; z-index:50;
+    background:rgba(240,230,214,.86);
+    backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-in { display:flex; align-items:center; justify-content:space-between; padding:0.9rem 0; }
+  .logo { font-family:var(--serif); font-weight:700; font-size:1.3rem; color:var(--grenat); text-decoration:none; letter-spacing:.01em; }
+  .logo span { color:var(--gold); }
+  .nav-links { display:flex; align-items:center; gap:1.6rem; }
+  .nav-links a { color:var(--ink-dim); text-decoration:none; font-size:.9rem; font-weight:500; transition:color .2s; }
+  .nav-links a:hover { color:var(--grenat); }
+  .nav-cta {
+    background:var(--grenat); color:#fffdf8; text-decoration:none;
+    padding:.55rem 1.15rem; border-radius:999px; font-size:.88rem; font-weight:600;
+    transition:background .2s, transform .15s;
+  }
+  .nav-cta:hover { background:var(--grenat-deep); transform:translateY(-1px); }
+
+  /* ---------- Hero ---------- */
+  header.hero { padding:5.2rem 0 3.6rem; }
+  .hero-grid { display:grid; grid-template-columns:1.3fr 1fr; gap:3.2rem; align-items:center; }
+  .kicker {
+    font-size:.72rem; font-weight:600; letter-spacing:.26em; text-transform:uppercase;
+    color:var(--grenat); margin-bottom:1.2rem; display:flex; align-items:center; gap:.8rem;
+  }
+  .kicker::before { content:""; width:42px; height:1px; background:var(--line-gold); }
+  h1 {
+    font-family:var(--serif); font-weight:600;
+    font-size:clamp(2.4rem,5.2vw,4.05rem); line-height:1.08;
+    letter-spacing:-.01em; color:var(--ink);
+  }
+  h1 em { font-style:italic; color:var(--grenat); }
+  .lead { margin-top:1.5rem; font-size:1.13rem; color:var(--ink-dim); max-width:34rem; }
+  .promesse {
+    margin-top:1.8rem; display:inline-block;
+    font-family:var(--serif); font-style:italic; font-size:1.32rem; color:var(--grenat-deep);
+    border-top:1px solid var(--line-gold); border-bottom:1px solid var(--line-gold);
+    padding:.65rem 0;
+  }
+  .hero-ctas { margin-top:2.2rem; display:flex; gap:1rem; flex-wrap:wrap; }
+  .btn {
+    display:inline-flex; align-items:center; gap:.5rem;
+    padding:.9rem 1.7rem; border-radius:999px; font-weight:600; font-size:.97rem;
+    text-decoration:none; border:none; cursor:pointer; font-family:var(--sans);
+    transition:transform .15s, box-shadow .2s, background .2s;
+  }
+  .btn-grenat { background:var(--grenat); color:#fffdf8; box-shadow:0 8px 24px rgba(128,0,32,.28); }
+  .btn-grenat:hover { background:var(--grenat-deep); transform:translateY(-2px); box-shadow:0 12px 30px rgba(128,0,32,.36); }
+  .btn-gold { background:linear-gradient(135deg,var(--gold-soft),var(--gold)); color:#2c1e1a; box-shadow:0 8px 24px rgba(201,162,39,.3); }
+  .btn-gold:hover { transform:translateY(-2px); box-shadow:0 12px 30px rgba(201,162,39,.42); }
+  .btn-ghost { background:transparent; color:var(--grenat); border:1px solid rgba(128,0,32,.4); }
+  .btn-ghost:hover { background:var(--grenat-soft); }
+
+  /* Colonne éditoriale droite */
+  .hero-note { background:var(--surface); border:1px solid var(--line); border-radius:18px; padding:1.8rem 1.9rem; box-shadow:var(--shadow); }
+  .hero-note p { color:var(--ink-dim); font-size:.95rem; margin-bottom:1rem; }
+  .hero-note p:last-child { margin-bottom:0; }
+  .hero-note .nb { font-family:var(--serif); font-size:1.5rem; color:var(--grenat); font-weight:600; }
+  .gold-rule { height:1px; background:linear-gradient(90deg,transparent,rgba(201,162,39,.6),transparent); border:none; margin:2.6rem 0; }
+
+  /* ---------- Bande de chiffres ---------- */
+  .stats { display:grid; grid-template-columns:repeat(4,1fr); gap:1.4rem; }
+  .stat { border-left:1px solid var(--line); padding-left:1.2rem; }
+  .stat b { display:block; font-family:var(--serif); font-weight:600; font-size:clamp(1.9rem,3.4vw,2.7rem); color:var(--grenat); line-height:1.1; }
+  .stat span { font-size:.78rem; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-faint); }
+  .stats-note { margin-top:1.2rem; font-size:.83rem; color:var(--ink-faint); font-style:italic; }
+
+  /* ---------- Sections ---------- */
+  section { padding:3.8rem 0; }
+  .sec-head { max-width:640px; margin-bottom:2.6rem; }
+  .sec-head .kicker { margin-bottom:.7rem; }
+  h2 { font-family:var(--serif); font-weight:600; font-size:clamp(1.7rem,3.4vw,2.5rem); line-height:1.18; color:var(--ink); }
+  h2 em { font-style:italic; color:var(--grenat); }
+  .sec-sub { color:var(--ink-dim); margin-top:.9rem; font-size:1.02rem; }
+
+  /* ---------- Douleurs ---------- */
+  .pains { display:grid; grid-template-columns:repeat(3,1fr); gap:1.4rem; }
+  .pain { background:var(--surface); border:1px solid var(--line); border-radius:18px; padding:1.8rem 1.7rem; box-shadow:var(--shadow); position:relative; }
+  .pain .num { font-family:var(--serif); font-size:1rem; color:var(--gold); letter-spacing:.12em; }
+  .pain h3 { font-family:var(--serif); font-weight:600; font-size:1.28rem; margin:.5rem 0 .7rem; color:var(--ink); }
+  .pain p { font-size:.93rem; color:var(--ink-dim); }
+  .pain .ico { font-size:1.7rem; margin-bottom:.6rem; }
+
+  /* ---------- Fonctionnement ---------- */
+  .steps { display:grid; grid-template-columns:repeat(3,1fr); gap:1.4rem; counter-reset:step; }
+  .step { background:var(--surface); border:1px solid var(--line); border-radius:18px; padding:1.9rem 1.7rem; box-shadow:var(--shadow); position:relative; }
+  .step .big { font-family:var(--serif); font-weight:600; font-size:3.4rem; line-height:1; color:transparent; -webkit-text-stroke:1.3px rgba(128,0,32,.55); display:block; margin-bottom:.9rem; }
+  .step h3 { font-family:var(--serif); font-weight:600; font-size:1.3rem; margin-bottom:.6rem; color:var(--ink); }
+  .step p { font-size:.93rem; color:var(--ink-dim); }
+  .step .arrow { position:absolute; right:-1.15rem; top:50%; transform:translateY(-50%); color:var(--gold); font-size:1.5rem; z-index:2; }
+  @media (max-width:960px){ .step .arrow{ display:none; } }
+
+  /* ---------- Bande outil ---------- */
+  .tool-band { background:linear-gradient(135deg,var(--grenat),#5c0a1f); border-radius:24px; color:#f7f0e3; padding:2.8rem 2.6rem; display:grid; grid-template-columns:1.4fr 1fr; gap:2rem; align-items:center; box-shadow:0 18px 44px rgba(90,0,23,.35); }
+  .tool-band .kicker { color:var(--gold-soft); }
+  .tool-band .kicker::before { background:var(--line-gold); }
+  .tool-band h2 { color:#fffdf8; }
+  .tool-band h2 em { color:var(--gold-soft); }
+  .tool-band p { color:rgba(247,240,227,.85); font-size:.97rem; margin-top:.9rem; }
+  .tool-band ul { list-style:none; margin-top:1.2rem; display:flex; flex-wrap:wrap; gap:.55rem; }
+  .tool-band li { font-size:.8rem; border:1px solid rgba(227,201,126,.5); color:var(--gold-soft); border-radius:999px; padding:.3rem .8rem; }
+  .tool-band .btn { margin-top:1.5rem; }
+
+  /* ---------- Offres ---------- */
+  .offers { display:grid; grid-template-columns:repeat(3,1fr); gap:1.4rem; align-items:stretch; }
+  .offer { background:var(--surface); border:1px solid var(--line); border-radius:20px; padding:2rem 1.8rem; display:flex; flex-direction:column; position:relative; box-shadow:var(--shadow); }
+  .offer.featured { border-color:rgba(201,162,39,.65); box-shadow:0 16px 44px rgba(201,162,39,.22); }
+  .offer .tag {
+    position:absolute; top:-13px; left:50%; transform:translateX(-50%);
+    background:linear-gradient(135deg,var(--gold-soft),var(--gold)); color:#2c1e1a;
+    font-size:.68rem; font-weight:700; letter-spacing:.14em; text-transform:uppercase;
+    padding:.35rem 1rem; border-radius:999px; white-space:nowrap;
+  }
+  .offer h3 { font-family:var(--serif); font-weight:600; font-size:1.35rem; color:var(--ink); }
+  .offer .price { font-family:var(--serif); font-weight:600; font-size:2.6rem; color:var(--grenat); margin:.7rem 0 .1rem; }
+  .offer .price small { font-size:.95rem; color:var(--ink-faint); font-weight:400; font-family:var(--sans); }
+  .offer .for { font-size:.82rem; color:var(--ink-faint); font-style:italic; margin-bottom:1.1rem; }
+  .offer ul { list-style:none; flex:1; }
+  .offer li { padding:.42rem 0 .42rem 1.55rem; position:relative; color:var(--ink-dim); font-size:.92rem; }
+  .offer li::before { content:"✓"; position:absolute; left:0; color:var(--gold); font-weight:700; }
+  .offer .btn { margin-top:1.5rem; justify-content:center; width:100%; }
+
+  /* ---------- Pull-quote ---------- */
+  .quote { max-width:760px; margin:0 auto; text-align:center; padding:1.6rem 0; }
+  .quote p { font-family:var(--serif); font-style:italic; font-size:clamp(1.3rem,2.6vw,1.7rem); color:var(--ink); line-height:1.5; }
+  .quote p em { color:var(--grenat); }
+  .quote .by { margin-top:1rem; font-size:.8rem; letter-spacing:.18em; text-transform:uppercase; color:var(--ink-faint); }
+
+  /* ---------- Formulaire ---------- */
+  .order { background:var(--surface); border:1px solid rgba(201,162,39,.55); border-radius:22px; padding:2.4rem 2.3rem; box-shadow:var(--shadow); max-width:860px; margin:0 auto; }
+  .order h2 { font-size:1.55rem; margin-bottom:.4rem; }
+  .order .sub { color:var(--ink-dim); font-size:.95rem; margin-bottom:1.6rem; }
+  .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:1.1rem; }
+  @media (max-width:640px){ .grid2{ grid-template-columns:1fr; } }
+  .f label { display:block; font-size:.82rem; font-weight:600; color:var(--grenat); margin-bottom:.4rem; letter-spacing:.03em; }
+  .f input, .f select, .f textarea {
+    width:100%; padding:.75rem .95rem; border-radius:11px; border:1px solid rgba(128,0,32,.25);
+    background:var(--bg-soft); color:var(--ink); font-size:.95rem; font-family:var(--sans);
+    outline:none; transition:border-color .2s, box-shadow .2s;
+  }
+  .f input:focus, .f select:focus, .f textarea:focus { border-color:var(--grenat); box-shadow:0 0 0 3px rgba(128,0,32,.1); }
+  .f textarea { resize:vertical; min-height:86px; }
+  .order .btn { margin-top:1.5rem; }
+  .note { font-size:.8rem; color:var(--ink-faint); margin-top:1rem; }
+  .success {
+    display:none; margin-top:1.2rem; background:rgba(201,162,39,.14); border:1px solid rgba(201,162,39,.55);
+    color:#6b4f00; border-radius:12px; padding:1rem 1.2rem; font-size:.93rem;
+  }
+  .success.visible { display:block; }
+  .success b { color:#5a4100; }
+
+  /* ---------- Garantie ---------- */
+  .guarantee { display:flex; gap:1.1rem; align-items:center; background:var(--surface); border:1px solid var(--line); border-radius:18px; padding:1.5rem 1.7rem; max-width:860px; margin:2.4rem auto 0; box-shadow:var(--shadow); }
+  .guarantee .ico { font-size:2.1rem; }
+  .guarantee h3 { font-family:var(--serif); font-size:1.12rem; color:var(--ink); margin-bottom:.2rem; }
+  .guarantee p { font-size:.9rem; color:var(--ink-dim); }
+
+  /* ---------- FAQ ---------- */
+  .faq { max-width:820px; margin:0 auto; }
+  details { background:var(--surface); border:1px solid var(--line); border-radius:14px; margin-bottom:.8rem; overflow:hidden; box-shadow:0 4px 14px rgba(44,30,26,.05); }
+  summary {
+    cursor:pointer; padding:1.05rem 1.3rem; font-weight:600; font-size:.98rem; color:var(--ink);
+    list-style:none; display:flex; justify-content:space-between; align-items:center; gap:1rem;
+  }
+  summary::-webkit-details-marker { display:none; }
+  summary::after { content:"+"; font-family:var(--serif); font-size:1.4rem; color:var(--gold); transition:transform .25s; }
+  details[open] summary::after { transform:rotate(45deg); }
+  details p { padding:0 1.3rem 1.15rem; color:var(--ink-dim); font-size:.93rem; }
+
+  /* ---------- Footer ---------- */
+  footer { border-top:1px solid var(--line); padding:2.4rem 0 3rem; margin-top:2rem; }
+  .foot-in { display:flex; justify-content:space-between; flex-wrap:wrap; gap:1.4rem; align-items:center; }
+  footer .logo { font-size:1.15rem; }
+  .foot-links { display:flex; gap:1.4rem; flex-wrap:wrap; }
+  .foot-links a { color:var(--ink-dim); text-decoration:none; font-size:.88rem; }
+  .foot-links a:hover { color:var(--grenat); }
+  .foot-copy { margin-top:1.3rem; font-size:.8rem; color:var(--ink-faint); }
+
+  /* ---------- Reveal ---------- */
+  .reveal { opacity:0; transform:translateY(20px); transition:opacity .7s ease, transform .7s ease; }
+  .reveal.visible { opacity:1; transform:none; }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width:960px){
+    .hero-grid { grid-template-columns:1fr; gap:2rem; }
+    .pains, .steps, .offers, .stats { grid-template-columns:1fr; }
+    .stat { border-left:none; border-top:1px solid var(--line); padding:1rem 0 0; }
+    .tool-band { grid-template-columns:1fr; padding:2.2rem 1.8rem; }
+    .nav-links a:not(.nav-cta) { display:none; }
+    header.hero { padding:3.4rem 0 2.4rem; }
+  }
+  @media (prefers-reduced-motion: reduce){
+    html { scroll-behavior:auto; }
+    .reveal { opacity:1; transform:none; transition:none; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap nav-in">
+    <a class="logo" href="index.html">Entretien<span>&nbsp;IA</span></a>
+    <div class="nav-links">
+      <a href="#douleurs">La méthode</a>
+      <a href="#offres">Offres</a>
+      <a href="#faq">FAQ</a>
+      <a class="nav-cta" href="outil-entretien.html">Essayer l'outil gratuit →</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <div class="kicker reveal">Cabinet RH · Recrutement structuré</div>
+        <h1 class="reveal">Le bon candidat se perd dans les <em>mauvaises questions.</em></h1>
+        <p class="lead reveal">Sans trame, chaque entretien repart de zéro : on improvise, on oublie l'essentiel et on note au ressenti. Résultat&nbsp;: les bons profils repartent, les mauvais passent.</p>
+        <div class="promesse reveal">«&nbsp;Un entretien structuré, noté sans biais, en 30&nbsp;minutes.&nbsp;»</div>
+        <div class="hero-ctas reveal">
+          <a class="btn btn-gold" href="outil-entretien.html">🧭 Essayer l'outil gratuit</a>
+          <a class="btn btn-ghost" href="#offres">Voir les offres</a>
+        </div>
+      </div>
+      <div class="hero-note reveal">
+        <p>Vous recrutez un commercial, une développeuse, un alternant&nbsp;? L'outil Entretien IA génère <span class="nb">15 questions structurées</span> par compétence — savoir-faire, savoir-être, motivation.</p>
+        <p>Chaque réponse se note sur des critères précis (1 à 5), le score final et le verdict se calculent seuls, et la checklist anti-biais garde votre décision au niveau des faits.</p>
+        <p>Pas de compte, pas d'abonnement, pas d'installation&nbsp;: tout se passe dans votre navigateur, gratuitement.</p>
+      </div>
+    </div>
+    <hr class="gold-rule">
+    <div class="stats reveal">
+      <div class="stat"><b>30 min</b><span>d'entretien structuré</span></div>
+      <div class="stat"><b>15</b><span>questions par poste</span></div>
+      <div class="stat"><b>8</b><span>postes couverts</span></div>
+      <div class="stat"><b>7</b><span>vérifications anti-biais</span></div>
+    </div>
+    <p class="stats-note">Les chiffres de la méthode Entretien IA — outil en ligne inclus, gratuitement.</p>
+  </div>
+</header>
+
+<section id="douleurs">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="kicker">Pourquoi ça casse</div>
+      <h2>Trois erreurs qui coûtent <em>les bons candidats</em></h2>
+      <p class="sec-sub">Chacune se corrige avec une trame — c'est exactement ce que vous livre Entretien IA.</p>
+    </div>
+    <div class="pains">
+      <div class="pain reveal">
+        <div class="ico">🎲</div>
+        <div class="num">01</div>
+        <h3>L'improvisation</h3>
+        <p>On révise le CV en direct, on oublie les questions clés, et chaque candidat est interrogé différemment — donc comparé injustement. Le poste n'est jamais évalué sur les mêmes critères deux fois.</p>
+      </div>
+      <div class="pain reveal">
+        <div class="ico">🌫️</div>
+        <div class="num">02</div>
+        <h3>La notation au ressenti</h3>
+        <p>«&nbsp;Bonne impression&nbsp;», «&nbsp;ça s'est bien passé&nbsp;»&nbsp;: les notes varient selon l'humeur, l'ordre des entretiens, la forme du moment. Les décisions importantes reposent sur des impressions jamais vérifiées.</p>
+      </div>
+      <div class="pain reveal">
+        <div class="ico">🧠</div>
+        <div class="num">03</div>
+        <h3>Les biais inconscients</h3>
+        <p>Effet de halo, similarité, ancrage&nbsp;: sans grille, votre cerveau comble les manques et surpondère le premier regard. Le bon candidat repart sans qu'on ait vérifié l'essentiel — et l'erreur d'embauche coûte des mois.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="kicker">La méthode</div>
+      <h2>Un entretien structuré en <em>3 étapes</em></h2>
+    </div>
+    <div class="steps">
+      <div class="step reveal">
+        <span class="big">1</span>
+        <h3>Préparer</h3>
+        <p>Choisissez le poste parmi 8&nbsp;: l'outil génère 15 questions structurées par compétence — savoir-faire, savoir-être, motivation. Vos grilles sont prêtes en 2&nbsp;minutes, avant même d'ouvrir le premier CV.</p>
+        <span class="arrow">→</span>
+      </div>
+      <div class="step reveal">
+        <span class="big">2</span>
+        <h3>Interviewer</h3>
+        <p>Posez les questions dans l'ordre, notez chaque critère de 1 à 5 pendant l'échange. La checklist anti-biais (7 vérifications) vous garde sur les faits, pas sur le feeling.</p>
+        <span class="arrow">→</span>
+      </div>
+      <div class="step reveal">
+        <span class="big">3</span>
+        <h3>Évaluer</h3>
+        <p>Le score final et le verdict se calculent automatiquement. Vous comparez les candidats sur une grille identique et documentez chaque décision — défendable, traçable, sans biais.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="tool-band-wrap">
+  <div class="wrap">
+    <div class="tool-band reveal">
+      <div>
+        <div class="kicker">Essayez maintenant</div>
+        <h2>Le générateur de questions, <em>gratuit et sans inscription</em></h2>
+        <p>Choisissez un poste, obtenez vos 15 questions, notez sur la grille, vérifiez les 7 points anti-biais, exportez en PDF. Vos données ne quittent jamais votre ordinateur.</p>
+        <ul>
+          <li>8 postes</li>
+          <li>15 questions structurées</li>
+          <li>Notation 1-5 + verdict</li>
+          <li>Checklist anti-biais</li>
+          <li>Export PDF</li>
+        </ul>
+        <a class="btn btn-gold" href="outil-entretien.html">Ouvrir l'outil →</a>
+      </div>
+      <div class="hero-note">
+        <p><span class="nb">Commercial · Développeur · Support · Marketing · RH · Manager · Alternant · Data</span></p>
+        <p>Les questions sont conçues pour provoquer des exemples concrets, pas des réponses théoriques. Chaque compétence a son critère de notation — vous saurez toujours pourquoi vous notez 3 et pas 5.</p>
+        <p>Et quand l'outil vous a convaincu, la checklist PDF et les templates d'emails font le reste.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="offres">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="kicker">Les offres</div>
+      <h2>Choisissez votre <em>niveau de structure</em></h2>
+      <p class="sec-sub">Livraison par email sous 24-48&nbsp;h ouvrées · Garantie 14 jours satisfait ou remboursé sur les trois offres.</p>
+    </div>
+    <div class="offers">
+      <div class="offer reveal">
+        <h3>Checklist PDF</h3>
+        <div class="price">19 €</div>
+        <div class="for">Pour commencer à structurer dès demain</div>
+        <ul>
+          <li>La checklist d'entretien complète (PDF)</li>
+          <li>Préparation : 12 points avant l'entretien</li>
+          <li>15 questions types par compétence</li>
+          <li>5 grilles de notation 1-5 prêtes à imprimer</li>
+          <li>Les 7 vérifications anti-biais</li>
+          <li>Règle de décision et seuils de verdict</li>
+        </ul>
+        <button class="btn btn-ghost" onclick="choisirOffre('Checklist PDF + 5 grilles — 19 €')">Commander →</button>
+      </div>
+      <div class="offer featured reveal">
+        <div class="tag">Le plus choisi</div>
+        <h3>Pack Recruteur</h3>
+        <div class="price">39 €</div>
+        <div class="for">Pour interviewer et décider en confiance</div>
+        <ul>
+          <li>Tout le pack Checklist PDF (19 €)</li>
+          <li>Générateur de questions par poste : 8 postes, 15 questions chacun</li>
+          <li>Templates d'emails prêts à envoyer : convocation, relance, refus, offre</li>
+          <li>Script d'ouverture et de clôture d'entretien</li>
+          <li>Modèle de compte-rendu de recrutement</li>
+          <li>Mises à jour incluses</li>
+        </ul>
+        <button class="btn btn-grenat" onclick="choisirOffre('Pack Recruteur — 39 €')">Commander →</button>
+      </div>
+      <div class="offer reveal">
+        <h3>Pack RH complet</h3>
+        <div class="price">79 €</div>
+        <div class="for">Pour une équipe qui recrute au même standard</div>
+        <ul>
+          <li>Tout le pack Recruteur (39 €)</li>
+          <li>Guide anti-biais approfondi : 12 biais expliqués + protocole de correction</li>
+          <li>Formation recruteurs (PDF) : 7 modules pour toute l'équipe</li>
+          <li>Grille de comparaison multi-candidats</li>
+          <li>Priorité de réponse sous 24 h</li>
+          <li>Garantie 14 jours incluse</li>
+        </ul>
+        <button class="btn btn-ghost" onclick="choisirOffre('Pack RH complet — 79 €')">Commander →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap">
+  <div class="quote reveal">
+    <p>«&nbsp;Un bon entretien ne se joue pas au talent de l'intervieweur, mais à la <em>qualité de son cadre</em>.&nbsp;»</p>
+    <div class="by">— La méthode Entretien IA</div>
+  </div>
+</div>
+
+<section id="commander">
+  <div class="wrap">
+    <div class="order reveal">
+      <h2>Commander votre pack</h2>
+      <p class="sub">Après réception de votre commande, nous vous confirmons les modalités de paiement (virement ou carte selon votre préférence) et livrons sous 24-48&nbsp;h ouvrées. Le Pack RH inclut la planification de votre accompagnement prioritaire.</p>
+      <form id="cmd-form" onsubmit="return commander(event)">
+        <div class="grid2">
+          <div class="f"><label for="o-nom">Votre nom *</label><input type="text" id="o-nom" placeholder="Prénom Nom" required></div>
+          <div class="f"><label for="o-email">Votre email *</label><input type="email" id="o-email" placeholder="vous@exemple.fr" required></div>
+          <div class="f" style="grid-column:1/-1;"><label for="o-offre">Pack choisi</label>
+            <select id="o-offre">
+              <option>Checklist PDF + 5 grilles — 19 €</option>
+              <option>Pack Recruteur — 39 €</option>
+              <option>Pack RH complet — 79 €</option>
+            </select>
+          </div>
+          <div class="f" style="grid-column:1/-1;"><label for="o-msg">Votre besoin / question (optionnel)</label>
+            <textarea id="o-msg" placeholder="Ex. : je recrute 3 commerciaux ce trimestre, j'aimerais des questions orientées chasse de nouveaux comptes…"></textarea>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-grenat" id="o-submit">Envoyer ma commande ✉️</button>
+        <p class="note">🔒 Vos coordonnées ne servent qu'au traitement de votre commande (conforme RGPD). Garantie 14 jours satisfait ou remboursé.</p>
+        <div class="success" id="o-success"><b>✅ Commande envoyée !</b> Vous recevez une confirmation par email dans les minutes qui suivent, puis notre réponse sous 24&nbsp;h avec les modalités de paiement et de livraison.</div>
+      </form>
+    </div>
+    <div class="guarantee reveal">
+      <div class="ico">🛡️</div>
+      <div>
+        <h3>Garantie 14 jours satisfait ou remboursé</h3>
+        <p>Si la checklist ne structure pas vos entretiens dès la première utilisation, vous êtes remboursé intégralement, sans condition ni justification.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="kicker">FAQ</div>
+      <h2>Vos questions, <em>nos réponses</em></h2>
+    </div>
+    <div class="faq reveal">
+      <details>
+        <summary>À qui s'adresse Entretien IA ?</summary>
+        <p>Aux recruteurs, responsables RH, fondateurs et managers qui embauchent — en PME, start-up ou en indépendant. Si vous menez des entretiens sans trame, c'est fait pour vous.</p>
+      </details>
+      <details>
+        <summary>Le générateur de questions est-il vraiment gratuit ?</summary>
+        <p>Oui. L'outil en ligne (outil-entretien.html) est 100 % gratuit et sans inscription&nbsp;: 8 postes, 15 questions structurées par compétence, grille de notation 1-5, checklist anti-biais et export PDF. Vos données ne quittent pas votre navigateur.</p>
+      </details>
+      <details>
+        <summary>Comment se passe la livraison ?</summary>
+        <p>Après votre commande, vous recevez un email de confirmation, puis les fichiers (PDF + grilles) par email sous 24-48&nbsp;h ouvrées. Le Pack RH inclut une priorité de réponse sous 24&nbsp;h.</p>
+      </details>
+      <details>
+        <summary>La grille de notation élimine-t-elle vraiment les biais ?</summary>
+        <p>Elle structure l'évaluation&nbsp;: mêmes questions, mêmes critères, mêmes seuils pour tous les candidats, plus 7 vérifications anti-biais à cocher avant de décider. Elle ne remplace pas votre jugement — elle le fiabilise, et elle documente chaque décision.</p>
+      </details>
+      <details>
+        <summary>Et si je recrute pour un poste qui n'est pas dans la liste ?</summary>
+        <p>Les 15 questions types de la checklist couvrent tous les postes, et le générateur s'adapte&nbsp;: vous réutilisez la structure par compétence (savoir-faire, savoir-être, motivation) pour écrire vos propres questions en conservant la grille de notation.</p>
+      </details>
+      <details>
+        <summary>Puis-je utiliser les grilles pour plusieurs candidats ?</summary>
+        <p>Oui, autant que vous voulez — c'est même le but&nbsp;: noter chaque candidat sur la même grille, c'est la seule façon de les comparer équitablement.</p>
+      </details>
+      <details>
+        <summary>Y a-t-il une garantie ?</summary>
+        <p>Oui&nbsp;: 14 jours satisfait ou remboursé, sans condition ni justification, sur les trois offres.</p>
+      </details>
+      <details>
+        <summary>Mes données sont-elles protégées ?</summary>
+        <p>Vos coordonnées ne servent qu'au traitement de votre commande. Elles ne sont ni revendues ni utilisées à des fins publicitaires (conforme RGPD).</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-in">
+      <a class="logo" href="index.html">Entretien<span>&nbsp;IA</span></a>
+      <div class="foot-links">
+        <a href="index.html">Accueil</a>
+        <a href="outil-entretien.html">Outil gratuit</a>
+        <a href="#offres">Offres</a>
+        <a href="#faq">FAQ</a>
+      </div>
+    </div>
+    <p class="foot-copy">© 2026 Entretien IA — Conçu pour les recruteurs qui veulent embaucher sur des faits, pas sur du ressenti.</p>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var EMAILJS_CFG = { serviceId: "service_cy1ytdb", templateId: "template_xpo58cv", publicKey: "8Pui4ZEqxW2jRVF7h" };
+  if (window.emailjs) {
+    try { emailjs.init({ publicKey: EMAILJS_CFG.publicKey }); } catch (err) {}
+  }
+
+  var OFFRE_NOMS = {
+    "Checklist PDF + 5 grilles — 19 €": "Checklist PDF + 5 grilles (19 €)",
+    "Pack Recruteur — 39 €": "Pack Recruteur (39 €)",
+    "Pack RH complet — 79 €": "Pack RH complet (79 €)"
+  };
+
+  window.choisirOffre = function (label) {
+    var sel = document.getElementById("o-offre");
+    if (sel) sel.value = label;
+    var el = document.getElementById("commander");
+    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
+  window.commander = function (event) {
+    if (event && event.preventDefault) event.preventDefault();
+    var nom = document.getElementById("o-nom").value.trim();
+    var email = document.getElementById("o-email").value.trim();
+    var offre = document.getElementById("o-offre").value;
+    var msg = document.getElementById("o-msg").value.trim();
+
+    if (!nom || !email || email.indexOf("@") === -1) {
+      alert("Merci de renseigner votre nom et un email valide.");
+      return false;
+    }
+
+    var question = "Commande : " + (OFFRE_NOMS[offre] || offre);
+    if (msg) question += " | Besoin : " + msg;
+
+    var submitBtn = document.getElementById("o-submit");
+    var chargerEmailJS = function () {
+      return new Promise(function (res, rej) {
+        if (window.emailjs && window.emailjs.send) {
+          try { emailjs.init({ publicKey: EMAILJS_CFG.publicKey }); } catch (err) {}
+          res();
+          return;
+        }
+        var s = document.createElement("script");
+        s.src = "https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js";
+        s.onload = function () {
+          try { emailjs.init({ publicKey: EMAILJS_CFG.publicKey }); } catch (err) {}
+          res();
+        };
+        s.onerror = function () { rej(new Error("cdn")); };
+        document.head.appendChild(s);
+      });
+    };
+
+    submitBtn.disabled = true;
+    var oldLabel = submitBtn.textContent;
+    submitBtn.textContent = "Envoi en cours…";
+
+    chargerEmailJS().then(function () {
+      return emailjs.send(EMAILJS_CFG.serviceId, EMAILJS_CFG.templateId, {
+        site: "Entretien IA",
+        name: nom,
+        email: email,
+        question: question
+      });
+    }).then(function () {
+      document.getElementById("o-success").classList.add("visible");
+      document.getElementById("cmd-form").reset();
+      submitBtn.textContent = "✅ Commande envoyée";
+    }).catch(function (err) {
+      submitBtn.disabled = false;
+      submitBtn.textContent = oldLabel;
+      alert("Échec de l'envoi : merci de réessayer ou d'écrire directement à entretien.ia.contact@gmail.com. Détail : " + ((err && err.text) ? err.text : "service indisponible"));
+    });
+    return false;
+  };
+
+  // Reveal au scroll
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) { e.target.classList.add("visible"); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll(".reveal").forEach(function (el) { io.observe(el); });
+})();
+</script>
+<script src="chatbot-config.js"></script>
+<script src="chatbot.js"></script>
+</body>
+</html>

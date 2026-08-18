@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Outil d'entretien structuré — Entretien IA | Générateur de questions + grille de notation</title>
+<meta name="description" content="Outil gratuit d'entretien d'embauche : 8 postes, 15 questions structurées par compétence (savoir-faire, savoir-être, motivation), grille de notation 1-5, score final, verdict et checklist anti-biais. Export PDF. 100 % local.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:site_name" content="Entretien IA">
+<meta property="og:title" content="Outil d'entretien structuré — Entretien IA">
+<meta property="og:description" content="Générez 15 questions par poste, notez chaque critère de 1 à 5, obtenez le score final et le verdict, vérifiez les 7 points anti-biais. Gratuit, sans inscription, 100 % local.">
+<meta name="twitter:card" content="summary">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  :root{
+    --bg:#f0e6d6;
+    --bg-soft:#f7f0e3;
+    --surface:#fffdf8;
+    --ink:#2c1e1a;
+    --ink-dim:#6b5748;
+    --ink-faint:#9c8577;
+    --grenat:#800020;
+    --grenat-deep:#5a0017;
+    --grenat-soft:rgba(128,0,32,.07);
+    --gold:#c9a227;
+    --gold-soft:#e3c97e;
+    --line:rgba(128,0,32,.14);
+    --line-gold:rgba(201,162,39,.5);
+    --ok:#2f7d4f;
+    --warn:#9a6b00;
+    --serif:'Playfair Display',Georgia,'Times New Roman',serif;
+    --sans:'Inter',-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;
+    --shadow:0 10px 34px rgba(44,30,26,.08);
+  }
+  html { scroll-behavior:smooth; }
+  body {
+    font-family:var(--sans); color:var(--ink); line-height:1.65;
+    background:radial-gradient(1000px 520px at 84% -8%, rgba(201,162,39,.16), transparent 62%), var(--bg);
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap { max-width:1080px; margin:0 auto; padding:0 1.5rem; }
+
+  /* ---------- Nav ---------- */
+  nav { position:sticky; top:0; z-index:50; background:rgba(240,230,214,.88); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); border-bottom:1px solid var(--line); }
+  .nav-in { display:flex; align-items:center; justify-content:space-between; padding:.85rem 0; }
+  .logo { font-family:var(--serif); font-weight:700; font-size:1.25rem; color:var(--grenat); text-decoration:none; }
+  .logo span { color:var(--gold); }
+  .nav-right { display:flex; align-items:center; gap:1.2rem; }
+  .nav-right a { color:var(--ink-dim); text-decoration:none; font-size:.88rem; font-weight:500; }
+  .nav-right a:hover { color:var(--grenat); }
+  .nav-cta { background:var(--grenat); color:#fffdf8; text-decoration:none; padding:.5rem 1.05rem; border-radius:999px; font-size:.85rem; font-weight:600; }
+  .nav-cta:hover { background:var(--grenat-deep); }
+
+  /* ---------- Hero outil ---------- */
+  .tool-hero { padding:3.2rem 0 1.6rem; }
+  .kicker { font-size:.7rem; font-weight:600; letter-spacing:.26em; text-transform:uppercase; color:var(--grenat); display:flex; align-items:center; gap:.8rem; margin-bottom:.9rem; }
+  .kicker::before { content:""; width:42px; height:1px; background:var(--line-gold); }
+  h1 { font-family:var(--serif); font-weight:600; font-size:clamp(1.9rem,4.4vw,3rem); line-height:1.12; }
+  h1 em { font-style:italic; color:var(--grenat); }
+  .tool-sub { color:var(--ink-dim); margin-top:.8rem; max-width:640px; font-size:1.02rem; }
+  .local-badge { display:inline-flex; align-items:center; gap:.45rem; margin-top:1rem; font-size:.8rem; color:var(--ok); background:rgba(47,125,79,.1); border:1px solid rgba(47,125,79,.3); padding:.35rem .85rem; border-radius:999px; font-weight:600; }
+
+  /* ---------- Cartes étapes ---------- */
+  .card { background:var(--surface); border:1px solid var(--line); border-radius:20px; padding:1.9rem 1.9rem; box-shadow:var(--shadow); margin-top:1.6rem; }
+  .card-head { display:flex; align-items:center; gap:1rem; margin-bottom:1.4rem; flex-wrap:wrap; }
+  .card-head > div:nth-child(2) { flex:1; min-width:220px; }
+  .card-num { font-family:var(--serif); font-weight:600; font-size:1.6rem; color:var(--gold); border:1.5px solid var(--line-gold); width:52px; height:52px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+  .card-head h2 { font-family:var(--serif); font-weight:600; font-size:1.35rem; }
+  .card-head p { font-size:.86rem; color:var(--ink-faint); }
+
+  /* ---------- Minuteur 30 minutes ---------- */
+  .timer { display:flex; align-items:center; gap:.6rem; margin-left:auto; flex-wrap:wrap; justify-content:flex-end; padding:.45rem .9rem; border:1px solid var(--line-gold); border-radius:999px; background:var(--surface); box-shadow:0 4px 14px rgba(44,30,26,.06); }
+  .timer-label { font-size:.66rem; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-faint); font-weight:600; }
+  .timer-digits { font-family:var(--serif); font-weight:600; font-size:1.3rem; color:var(--grenat); font-variant-numeric:tabular-nums; min-width:3.6rem; text-align:center; }
+  .timer-digits.timeout { color:#b3402f; animation:timerBlink 1s steps(2) infinite; }
+  @keyframes timerBlink { 50% { opacity:.35; } }
+  .timer-btn { background:transparent; border:1px solid rgba(128,0,32,.35); color:var(--grenat); border-radius:999px; font-size:.74rem; font-weight:600; padding:.28rem .8rem; cursor:pointer; font-family:var(--sans); transition:background .15s; }
+  .timer-btn:hover { background:var(--grenat-soft); }
+  @media print { .timer { display:none !important; } }
+
+  .f label { display:block; font-size:.82rem; font-weight:600; color:var(--grenat); margin-bottom:.4rem; }
+  .f input, .f select {
+    width:100%; padding:.75rem .95rem; border-radius:11px; border:1px solid rgba(128,0,32,.25);
+    background:var(--bg-soft); color:var(--ink); font-size:.95rem; font-family:var(--sans); outline:none;
+    transition:border-color .2s, box-shadow .2s;
+  }
+  .f input:focus, .f select:focus { border-color:var(--grenat); box-shadow:0 0 0 3px rgba(128,0,32,.1); }
+  .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:1.1rem; }
+  @media (max-width:640px){ .grid2{ grid-template-columns:1fr; } }
+  .btn {
+    display:inline-flex; align-items:center; gap:.5rem; padding:.85rem 1.6rem; border-radius:999px;
+    font-weight:600; font-size:.97rem; border:none; cursor:pointer; font-family:var(--sans);
+    transition:transform .15s, box-shadow .2s, background .2s; text-decoration:none;
+  }
+  .btn-grenat { background:var(--grenat); color:#fffdf8; box-shadow:0 8px 24px rgba(128,0,32,.28); }
+  .btn-grenat:hover { background:var(--grenat-deep); transform:translateY(-1px); }
+  .btn-gold { background:linear-gradient(135deg,var(--gold-soft),var(--gold)); color:#2c1e1a; box-shadow:0 8px 24px rgba(201,162,39,.3); }
+  .btn-gold:hover { transform:translateY(-1px); }
+  .btn-ghost { background:transparent; color:var(--grenat); border:1px solid rgba(128,0,32,.4); }
+  .btn-ghost:hover { background:var(--grenat-soft); }
+  .btn-line { margin-top:1.4rem; }
+
+  /* ---------- Questions ---------- */
+  .grp { margin-bottom:2rem; }
+  .grp-head { display:flex; align-items:center; gap:.8rem; border-bottom:1px solid var(--line); padding-bottom:.6rem; margin-bottom:1.1rem; }
+  .grp-head h3 { font-family:var(--serif); font-weight:600; font-size:1.12rem; color:var(--grenat); }
+  .grp-head .avg { margin-left:auto; font-size:.85rem; color:var(--ink-faint); font-weight:600; }
+  .grp-head .avg b { font-family:var(--serif); font-size:1.05rem; color:var(--grenat); }
+  .q { border:1px solid var(--line); border-left:3px solid var(--gold); border-radius:12px; padding:1rem 1.15rem; margin-bottom:.8rem; background:var(--bg-soft); }
+  .q-top { display:flex; align-items:flex-start; gap:.8rem; }
+  .q-num { font-family:var(--serif); font-weight:600; color:var(--gold); font-size:1.05rem; min-width:1.6rem; text-align:center; padding-top:.1rem; }
+  .q-body { flex:1; }
+  .q-critere { display:inline-block; font-size:.68rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--grenat); background:var(--grenat-soft); border-radius:999px; padding:.18rem .7rem; margin-bottom:.35rem; }
+  .q-text { font-size:.95rem; color:var(--ink); }
+  .q-ctrl { display:flex; align-items:center; gap:1rem; margin-top:.7rem; flex-wrap:wrap; }
+  .q-ctrl select {
+    padding:.45rem .7rem; border-radius:9px; border:1px solid rgba(128,0,32,.3); background:var(--surface);
+    font-size:.9rem; font-family:var(--sans); font-weight:600; color:var(--ink); cursor:pointer; outline:none;
+  }
+  .q-ctrl select.r1 { border-color:#b3402f; color:#b3402f; background:#fdf1ee; }
+  .q-ctrl select.r2 { border-color:#c0702f; color:#a05a1e; background:#fbf3e8; }
+  .q-ctrl select.r3 { border-color:#c9a227; color:#8a6d0e; background:#faf4e0; }
+  .q-ctrl select.r4 { border-color:#3f8a5c; color:#2f7d4f; background:#eef7f1; }
+  .q-ctrl select.r5 { border-color:#2f7d4f; color:#1f5c38; background:#e5f3ea; }
+  .q-ctrl .note-input { flex:1; min-width:200px; }
+  .q-ctrl input[type="text"] {
+    width:100%; padding:.5rem .8rem; border-radius:9px; border:1px solid rgba(128,0,32,.18);
+    background:var(--surface); font-size:.86rem; font-family:var(--sans); color:var(--ink); outline:none;
+  }
+  .q-ctrl input[type="text"]:focus { border-color:var(--grenat); }
+  .legend { font-size:.8rem; color:var(--ink-faint); font-style:italic; margin-top:.4rem; }
+  .rating-label { font-size:.78rem; color:var(--ink-faint); font-weight:600; }
+
+  /* ---------- Score ---------- */
+  .score-panel { border:1px solid rgba(201,162,39,.55); border-radius:16px; padding:1.4rem 1.5rem; background:linear-gradient(180deg,rgba(201,162,39,.09),var(--surface)); }
+  .score-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; }
+  @media (max-width:700px){ .score-grid{ grid-template-columns:1fr; } }
+  .score-item { text-align:center; }
+  .score-item .lab { font-size:.7rem; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-faint); font-weight:600; }
+  .score-item .val { font-family:var(--serif); font-weight:600; font-size:2.3rem; color:var(--grenat); line-height:1.15; }
+  .score-item .val small { font-size:1rem; color:var(--ink-faint); }
+  .bar { height:7px; border-radius:99px; background:rgba(128,0,32,.12); margin-top:.4rem; overflow:hidden; }
+  .bar i { display:block; height:100%; border-radius:99px; background:linear-gradient(90deg,var(--gold-soft),var(--gold)); transition:width .5s ease; }
+  .verdict { margin-top:1.2rem; border-top:1px solid var(--line); padding-top:1.1rem; }
+  .verdict .v-label { font-size:.7rem; letter-spacing:.16em; text-transform:uppercase; color:var(--ink-faint); font-weight:600; }
+  .verdict .v-title { font-family:var(--serif); font-weight:600; font-size:1.45rem; color:var(--grenat); margin:.2rem 0 .3rem; }
+  .verdict .v-text { font-size:.92rem; color:var(--ink-dim); max-width:720px; }
+  .verdict .v-warn { margin-top:.7rem; font-size:.88rem; font-weight:600; color:var(--warn); background:rgba(154,107,0,.1); border:1px solid rgba(154,107,0,.35); border-radius:10px; padding:.6rem .9rem; display:none; }
+  .verdict .v-warn.visible { display:block; }
+
+  /* ---------- Anti-biais ---------- */
+  .ab { display:flex; flex-direction:column; gap:.65rem; }
+  .ab-item { display:flex; gap:.9rem; align-items:flex-start; border:1px solid var(--line); border-radius:12px; padding:.85rem 1rem; background:var(--bg-soft); transition:background .2s; }
+  .ab-item.checked { background:rgba(47,125,79,.07); border-color:rgba(47,125,79,.35); }
+  .ab-item input[type="checkbox"] { margin-top:.25rem; width:17px; height:17px; accent-color:var(--grenat); cursor:pointer; flex-shrink:0; }
+  .ab-item b { display:block; font-size:.92rem; color:var(--ink); }
+  .ab-item span { font-size:.85rem; color:var(--ink-dim); }
+  .ab-progress { margin-top:1rem; font-weight:600; font-size:.9rem; color:var(--grenat); }
+
+  /* ---------- Actions ---------- */
+  .actions { display:flex; gap:1rem; flex-wrap:wrap; margin-top:1.6rem; }
+
+  /* ---------- Bande CTA bas ---------- */
+  .tool-band { margin:2.6rem 0; background:linear-gradient(135deg,var(--grenat),#5c0a1f); border-radius:22px; color:#f7f0e3; padding:2.2rem 2.4rem; display:flex; justify-content:space-between; align-items:center; gap:1.5rem; flex-wrap:wrap; box-shadow:0 18px 44px rgba(90,0,23,.35); }
+  .tool-band h3 { font-family:var(--serif); font-weight:600; font-size:1.4rem; color:#fffdf8; }
+  .tool-band p { color:rgba(247,240,227,.85); font-size:.93rem; margin-top:.3rem; }
+  .tool-band .btn { flex-shrink:0; }
+
+  footer { border-top:1px solid var(--line); padding:2rem 0 2.6rem; }
+  .foot-in { display:flex; justify-content:space-between; flex-wrap:wrap; gap:1rem; align-items:center; }
+  footer .logo { font-size:1.1rem; }
+  .foot-links a { color:var(--ink-dim); text-decoration:none; font-size:.86rem; margin-left:1.3rem; }
+  .foot-links a:hover { color:var(--grenat); }
+  .foot-copy { margin-top:1rem; font-size:.8rem; color:var(--ink-faint); }
+
+  /* ---------- Rapport d'impression ---------- */
+  #print-report { display:none; }
+  @media print {
+    body { background:#fff; }
+    nav, .tool-hero, .card-head, .q-ctrl, .actions, .tool-band, footer, .no-print, #cb-btn, #cb-panel { display:none !important; }
+    .card { box-shadow:none; border:none; padding:0; margin:0; break-inside:avoid; }
+    .q { break-inside:avoid; background:#fff; border:1px solid #ccc; }
+    #print-report { display:block; }
+    .app { display:none !important; }
+  }
+
+  .reveal { opacity:0; transform:translateY(18px); transition:opacity .7s ease, transform .7s ease; }
+  .reveal.visible { opacity:1; transform:none; }
+  @media (prefers-reduced-motion: reduce){ .reveal{ opacity:1; transform:none; transition:none; } }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap nav-in">
+    <a class="logo" href="index.html">Entretien<span>&nbsp;IA</span></a>
+    <div class="nav-right">
+      <a href="index.html">← Retour au site</a>
+      <a class="nav-cta" href="index.html#offres">Voir les offres</a>
+    </div>
+  </div>
+</nav>
+
+<header class="tool-hero">
+  <div class="wrap">
+    <div class="kicker reveal">Outil gratuit · 100 % local</div>
+    <h1 class="reveal">Générateur d'entretien <em>structuré</em></h1>
+    <p class="tool-sub reveal">Choisissez un poste : l'outil génère 15 questions classées par compétence — savoir-faire, savoir-être, motivation. Notez chaque critère de 1 à 5, obtenez le score final, le verdict, et validez les 7 vérifications anti-biais avant de décider.</p>
+    <div class="local-badge reveal">🔒 Vos données restent dans votre navigateur — rien n'est envoyé sur Internet</div>
+  </div>
+</header>
+
+<main class="app">
+  <div class="wrap">
+
+    <!-- Étape 1 : Préparer -->
+    <section class="card reveal" id="etape1">
+      <div class="card-head">
+        <div class="card-num">1</div>
+        <div><h2>Préparer</h2><p>Le poste et le candidat — vos 15 questions se génèrent en un clic.</p></div>
+      </div>
+      <div class="grid2">
+        <div class="f"><label for="p-poste">Poste à pourvoir *</label>
+          <select id="p-poste">
+            <option value="">— Choisir un poste —</option>
+            <option value="commercial">Commercial / Business developer</option>
+            <option value="dev">Développeur / Ingénieur logiciel</option>
+            <option value="support">Support client / SAV</option>
+            <option value="marketing">Marketing / Growth</option>
+            <option value="rh">Ressources humaines / Recruteur</option>
+            <option value="manager">Manager / Chef d'équipe</option>
+            <option value="alternant">Alternant / Premier emploi</option>
+            <option value="data">Data analyst / Data scientist</option>
+          </select>
+        </div>
+        <div class="f"><label for="p-nom">Nom du candidat (optionnel)</label>
+          <input type="text" id="p-nom" placeholder="Ex. : Léa Martin">
+        </div>
+      </div>
+      <button class="btn btn-grenat btn-line" id="btn-generer">Générer mes 15 questions →</button>
+    </section>
+
+    <!-- Étape 2 : Interviewer -->
+    <section class="card reveal" id="etape2" style="display:none;">
+      <div class="card-head">
+        <div class="card-num">2</div>
+        <div><h2>Interviewer</h2><p>Posez les questions dans l'ordre. Notez chaque critère de 1 à 5 pendant l'échange, ajoutez une note si besoin.</p></div>
+        <div class="timer" id="timer-box">
+          <span class="timer-label">Cadence · 30 min</span>
+          <span class="timer-digits" id="timer-digits">30:00</span>
+          <button type="button" class="timer-btn" id="timer-start">Démarrer</button>
+          <button type="button" class="timer-btn" id="timer-reset">Réinit.</button>
+        </div>
+      </div>
+      <div id="questions"></div>
+      <p class="legend">Grille 1-5 : 1 = compétence non démontrée · 3 = démontrée avec réserves · 5 = maîtrisée, exemples à l'appui. Une note ne se donne qu'après un exemple concret.</p>
+    </section>
+
+    <!-- Étape 3 : Évaluer -->
+    <section class="card reveal" id="etape3" style="display:none;">
+      <div class="card-head">
+        <div class="card-num">3</div>
+        <div><h2>Évaluer</h2><p>Le score et le verdict se calculent automatiquement. Validez les 7 vérifications anti-biais, puis exportez votre rapport en PDF.</p></div>
+      </div>
+
+      <div class="score-panel">
+        <div class="score-grid">
+          <div class="score-item">
+            <div class="lab">Savoir-faire</div>
+            <div class="val" id="s-sf">—</div>
+            <div class="bar"><i id="b-sf" style="width:0%"></i></div>
+          </div>
+          <div class="score-item">
+            <div class="lab">Savoir-être</div>
+            <div class="val" id="s-se">—</div>
+            <div class="bar"><i id="b-se" style="width:0%"></i></div>
+          </div>
+          <div class="score-item">
+            <div class="lab">Motivation</div>
+            <div class="val" id="s-mo">—</div>
+            <div class="bar"><i id="b-mo" style="width:0%"></i></div>
+          </div>
+        </div>
+        <div class="verdict">
+          <div class="v-label">Score final · Verdict</div>
+          <div class="v-title" id="v-title">En attente de notes…</div>
+          <div class="v-text" id="v-text">Notez les critères de la grille ci-dessus : le score se met à jour automatiquement.</div>
+          <div class="v-warn" id="v-warn"></div>
+        </div>
+      </div>
+
+      <h3 style="font-family:var(--serif); font-weight:600; font-size:1.15rem; margin:2rem 0 .4rem; color:var(--ink);">Checklist anti-biais — 7 vérifications avant de décider</h3>
+      <p style="font-size:.88rem; color:var(--ink-dim); margin-bottom:1rem;">Cochez chaque point honnêtement. La décision finale ne se prend qu'à la dernière case.</p>
+      <div class="ab" id="ab-list"></div>
+      <div class="ab-progress" id="ab-progress">Vérifications : 0/7</div>
+
+      <div class="actions">
+        <button class="btn btn-grenat" id="btn-pdf">📄 Exporter le rapport en PDF</button>
+        <button class="btn btn-ghost" id="btn-reset">Réinitialiser</button>
+      </div>
+    </section>
+
+    <div class="tool-band reveal">
+      <div>
+        <h3>Vous voulez la version complète ?</h3>
+        <p>La checklist PDF, les 5 grilles imprimables, le générateur illimité et les templates d'emails sont dans les packs — dès 19 €, garantie 14 jours.</p>
+      </div>
+      <a class="btn btn-gold" href="index.html#offres">Découvrir les offres →</a>
+    </div>
+  </div>
+</main>
+
+<!-- Rapport d'impression (PDF) -->
+<div id="print-report"></div>
+
+<footer class="no-print">
+  <div class="wrap">
+    <div class="foot-in">
+      <a class="logo" href="index.html">Entretien<span>&nbsp;IA</span></a>
+      <div class="foot-links">
+        <a href="index.html">Accueil</a>
+        <a href="index.html#offres">Offres</a>
+        <a href="index.html#faq">FAQ</a>
+      </div>
+    </div>
+    <p class="foot-copy">© 2026 Entretien IA — Outil gratuit : 8 postes, 15 questions, grille 1-5, anti-biais, export PDF.</p>
+  </div>
+</footer>
+
+<script>
+(function () {
+  "use strict";
+
+  var GROUPES = [
+    { id: "sf", nom: "Savoir-faire", desc: "Les compétences techniques du poste" },
+    { id: "se", nom: "Savoir-être", desc: "Les comportements et soft skills" },
+    { id: "mo", nom: "Motivation", desc: "L'envie, l'alignement et le projet" }
+  ];
+
+  var POSTES = {
+    commercial: { nom: "Commercial / Business developer", questions: [
+      { c:"sf", critere:"Prospection", q:"Racontez-moi votre dernière semaine de prospection : comment avez-vous construit votre liste de prospects, et quel a été le taux de réponse ?" },
+      { c:"sf", critere:"Argumentation", q:"Présentez-moi un produit simple comme si vous le vendiez à un client hésitant. Quels arguments choisissez-vous, et dans quel ordre ?" },
+      { c:"sf", critere:"Négociation", q:"Décrivez une négociation où le client demandait une remise importante. Comment avez-vous défendu votre prix ?" },
+      { c:"sf", critere:"Closing et relance", q:"Parlez-moi d'une vente que vous pensiez perdue et que vous avez finalement conclue. Qu'avez-vous fait pour la relancer ?" },
+      { c:"sf", critere:"Gestion du portefeuille", q:"Comment organisez-vous votre semaine entre prospection, rendez-vous et suivi des clients existants ?" },
+      { c:"se", critere:"Écoute active", q:"Racontez un moment où écouter plus que parler vous a fait gagner la confiance d'un client." },
+      { c:"se", critere:"Résilience", q:"Comment gérez-vous une série de refus ? Donnez-moi un exemple récent et ce que vous en avez appris." },
+      { c:"se", critere:"Organisation", q:"Montrez-moi comment vous suivez vos opportunités et vos relances. Quelle méthode, quelle discipline ?" },
+      { c:"se", critere:"Esprit d'équipe", q:"Décrivez une collaboration avec un collègue — ou un autre service — qui a débloqué une vente." },
+      { c:"se", critere:"Intégrité", q:"Avez-vous déjà dû dire non à un client, pour son bien ou celui de l'entreprise ? Racontez." },
+      { c:"mo", critere:"Motivation pour la vente", q:"Qu'est-ce qui vous motive dans la vente au quotidien — et qu'est-ce qui vous épuise ?" },
+      { c:"mo", critere:"Alignement entreprise", q:"Pourquoi ce poste, et pourquoi dans cette entreprise plutôt qu'un concurrent ?" },
+      { c:"mo", critere:"Ambition", q:"Où vous voyez-vous dans deux ans, et que comptez-vous faire pour y arriver ?" },
+      { c:"mo", critere:"Apprentissage", q:"Quelle compétence commerciale travaillez-vous en ce moment, et comment ?" },
+      { c:"mo", critere:"Objectifs", q:"Si vous fixiez vous-même votre objectif de chiffre d'affaires pour les six prochains mois, quel montant viseriez-vous, et sur quoi vous appuyez-vous ?" }
+    ]},
+    dev: { nom: "Développeur / Ingénieur logiciel", questions: [
+      { c:"sf", critere:"Conception et architecture", q:"Décrivez un système que vous avez conçu — ou refactorisé. Quelles contraintes, quels compromis, et qu'auriez-vous fait différemment ?" },
+      { c:"sf", critere:"Qualité et tests", q:"Comment garantissez-vous la qualité de votre code ? Racontez un bug grave que vos tests ont attrapé — ou raté." },
+      { c:"sf", critere:"Débogage", q:"Parlez-moi d'un bug particulièrement vicieux : comment l'avez-vous traqué et résolu ?" },
+      { c:"sf", critere:"Performance", q:"Décrivez une optimisation de performance que vous avez menée : mesure, cause identifiée, gain obtenu." },
+      { c:"sf", critere:"Collaboration sur le code", q:"Comment se passe une revue de code dans vos équipes, et comment accueillez-vous les critiques sur votre code ?" },
+      { c:"se", critere:"Communication technique", q:"Expliquez-moi un concept technique complexe comme si je n'étais pas développeur." },
+      { c:"se", critere:"Curiosité", q:"Qu'avez-vous appris récemment — technologie ou pratique — et comment l'avez-vous mis en application ?" },
+      { c:"se", critere:"Autonomie", q:"Racontez une situation où vous avez pris une initiative technique sans qu'on vous le demande." },
+      { c:"se", critere:"Gestion de la pression", q:"Décrivez une mise en production sous pression : comment avez-vous priorisé et communiqué ?" },
+      { c:"se", critere:"Humilité face au legacy", q:"Comment abordez-vous une base de code ancienne que vous trouvez mal conçue ?" },
+      { c:"mo", critere:"Motivation pour le code", q:"Qu'est-ce qui vous plaît dans le développement — résoudre, construire, apprendre ? Donnez un exemple." },
+      { c:"mo", critere:"Projets personnels", q:"Parlez-moi d'un projet personnel, même petit : pourquoi lui, et qu'en avez-vous tiré ?" },
+      { c:"mo", critere:"Alignement entreprise", q:"Pourquoi ce poste et cette équipe plutôt qu'une autre ?" },
+      { c:"mo", critere:"Veille technologique", q:"Comment suivez-vous l'évolution des technologies sans vous noyer ?" },
+      { c:"mo", critere:"Objectifs", q:"Quel type de développeur voulez-vous devenir dans deux ans ?" }
+    ]},
+    support: { nom: "Support client / SAV", questions: [
+      { c:"sf", critere:"Diagnostic", q:"Racontez un problème client complexe que vous avez résolu : comment avez-vous identifié la cause ?" },
+      { c:"sf", critere:"Pédagogie", q:"Expliquez-moi une fonctionnalité simple comme si je ne savais rien de votre produit." },
+      { c:"sf", critere:"Montée en compétence", q:"Comment apprenez-vous un nouveau produit ou une nouvelle procédure quand vous arrivez quelque part ?" },
+      { c:"sf", critere:"Traçabilité", q:"Comment rédigez-vous vos tickets et vos comptes-rendus pour qu'un collègue puisse reprendre le dossier ?" },
+      { c:"sf", critere:"Escalade", q:"Décrivez une situation où vous avez dû escalader un problème : à quel moment, et comment ?" },
+      { c:"se", critere:"Empathie", q:"Racontez un client furieux : comment avez-vous désamorcé la situation ?" },
+      { c:"se", critere:"Patience", q:"Comment gérez-vous un client qui pose dix fois la même question ?" },
+      { c:"se", critere:"Réactivité", q:"Décrivez une journée où tout s'accumulait : comment avez-vous tenu le rythme sans sacrifier la qualité ?" },
+      { c:"se", critere:"Esprit d'équipe", q:"Comment partagez-vous vos découvertes avec vos collègues pour que toute l'équipe progresse ?" },
+      { c:"se", critere:"Honnêteté", q:"Avez-vous déjà dû annoncer à un client qu'on ne pouvait pas résoudre son problème ? Comment l'avez-vous fait ?" },
+      { c:"mo", critere:"Motivation pour le support", q:"Qu'est-ce qui vous plaît dans le support client ?" },
+      { c:"mo", critere:"Apport d'un client difficile", q:"Qu'est-ce qu'un client difficile vous a appris sur vous-même ?" },
+      { c:"mo", critere:"Alignement entreprise", q:"Pourquoi ce poste de support dans cette entreprise ?" },
+      { c:"mo", critere:"Amélioration continue", q:"Quelle amélioration du service avez-vous déjà proposée ou mise en place ?" },
+      { c:"mo", critere:"Objectifs", q:"Où voulez-vous être dans deux ans, et quel rôle le support y joue-t-il ?" }
+    ]},
+    marketing: { nom: "Marketing / Growth", questions: [
+      { c:"sf", critere:"Stratégie de campagne", q:"Décrivez une campagne que vous avez pilotée de bout en bout : objectif, cible, canaux, résultat." },
+      { c:"sf", critere:"Contenu et conversion", q:"Écrivez-moi le plan d'un article — ou d'un post — qui doit transformer des visiteurs en leads : titre, structure, appel à l'action." },
+      { c:"sf", critere:"Mesure et analyse", q:"Quelles métriques regardez-vous pour savoir qu'une campagne fonctionne, et comment les présentez-vous ?" },
+      { c:"sf", critere:"Acquisition organique", q:"Comment amélioreriez-vous la visibilité d'un site qui ne reçoit aucun trafic organique ?" },
+      { c:"sf", critere:"Emailing et CRM", q:"Racontez une séquence email — ou un parcours — que vous avez construit : segmentation, message, résultat." },
+      { c:"se", critere:"Créativité", q:"Parlez-moi d'une idée marketing originale que vous avez testée : pourquoi elle, et qu'en est-il ressorti ?" },
+      { c:"se", critere:"Rigueur", q:"Comment vérifiez-vous la qualité d'un livrable avant publication — chiffres, orthographe, cohérence ?" },
+      { c:"se", critere:"Collaboration", q:"Décrivez un travail avec une autre équipe — vente, produit, design — qui a amélioré une campagne." },
+      { c:"se", critere:"Adaptabilité", q:"Racontez une campagne qui a échoué : qu'avez-vous changé, et qu'avez-vous appris ?" },
+      { c:"se", critere:"Curiosité", q:"Quelle tendance marketing suivez-vous en ce moment, et qu'en pensez-vous vraiment ?" },
+      { c:"mo", critere:"Motivation pour le marketing", q:"Qu'est-ce qui vous passionne dans le marketing ?" },
+      { c:"mo", critere:"Réalisation dont vous êtes fier", q:"Quelle réalisation marketing vous rend le plus fier, et pourquoi ?" },
+      { c:"mo", critere:"Alignement entreprise", q:"Pourquoi rejoindre notre équipe marketing ?" },
+      { c:"mo", critere:"Veille", q:"Comment restez-vous à jour sur les canaux et les formats ?" },
+      { c:"mo", critere:"Objectifs", q:"Quel impact voulez-vous avoir dans douze mois si vous êtes retenu ?" }
+    ]},
+    rh: { nom: "Ressources humaines / Recruteur", questions: [
+      { c:"sf", critere:"Sourcing", q:"Comment trouvez-vous des candidats rares quand les canaux classiques ne fonctionnent pas ?" },
+      { c:"sf", critere:"Entretien structuré", q:"Décrivez un entretien que vous avez mené récemment : préparation, questions, méthode d'évaluation." },
+      { c:"sf", critere:"Conformité et droit", q:"Comment gérez-vous un dossier délicat — absence, mise à pied, fin de période d'essai — dans le respect du droit ?" },
+      { c:"sf", critere:"Onboarding", q:"Comment accueillez-vous un nouveau collaborateur pour qu'il soit rapidement opérationnel et intégré ?" },
+      { c:"sf", critere:"Gestion de conflit", q:"Racontez un conflit entre deux collaborateurs que vous avez aidé à résoudre." },
+      { c:"se", critere:"Confidentialité", q:"Comment protégez-vous les données sensibles que vous manipulez au quotidien ?" },
+      { c:"se", critere:"Écoute", q:"Décrivez un moment où écouter un collaborateur a changé votre analyse d'une situation." },
+      { c:"se", critere:"Neutralité", q:"Comment restez-vous neutre quand deux managers défendent des positions opposées ?" },
+      { c:"se", critere:"Pragmatisme", q:"Racontez une décision RH prise sans avoir toutes les informations : comment avez-vous tranché ?" },
+      { c:"se", critere:"Communication d'une mauvaise nouvelle", q:"Comment annoncez-vous une mauvaise nouvelle — refus, réorganisation — avec respect ?" },
+      { c:"mo", critere:"Motivation pour les RH", q:"Pourquoi avoir choisi les ressources humaines, et qu'est-ce qui vous y retient ?" },
+      { c:"mo", critere:"Expérience marquante", q:"Quelle expérience RH vous a le plus appris ?" },
+      { c:"mo", critere:"Alignement entreprise", q:"Pourquoi ce poste RH dans cette entreprise ?" },
+      { c:"mo", critere:"Éthique et biais", q:"Comment travaillez-vous sur vos propres biais en tant que recruteur ?" },
+      { c:"mo", critere:"Objectifs", q:"Quelle contribution RH voulez-vous apporter dans les douze prochains mois ?" }
+    ]},
+    manager: { nom: "Manager / Chef d'équipe", questions: [
+      { c:"sf", critere:"Délégation", q:"Décrivez une délégation réussie : qu'avez-vous délégué, à qui, et comment avez-vous suivi ?" },
+      { c:"sf", critere:"Pilotage des objectifs", q:"Comment fixez-vous des objectifs à votre équipe et suivez-vous leur atteinte ?" },
+      { c:"sf", critere:"Gestion de crise", q:"Racontez une crise — délai, conflit, départ — : quelles ont été vos trois premières actions ?" },
+      { c:"sf", critere:"Intégration d'un nouveau", q:"Comment intégrez-vous un nouveau membre dans votre équipe ?" },
+      { c:"sf", critere:"Feedback difficile", q:"Donnez-moi un exemple de feedback difficile que vous avez donné : comment, et quel effet ?" },
+      { c:"se", critere:"Leadership", q:"Comment faites-vous pour que votre équipe ait envie de vous suivre sur un projet difficile ?" },
+      { c:"se", critere:"Écoute", q:"Racontez un moment où un membre de l'équipe vous a fait changer d'avis." },
+      { c:"se", critere:"Décision", q:"Décrivez une décision impopulaire que vous avez prise et assumée." },
+      { c:"se", critere:"Exemplarité", q:"Sur quelle habitude de travail montrez-vous l'exemple, même quand personne ne regarde ?" },
+      { c:"se", critere:"Résilience", q:"Comment gérez-vous votre propre stress quand l'équipe compte sur vous ?" },
+      { c:"mo", critere:"Motivation pour le management", q:"Pourquoi voulez-vous manager, et pas seulement exceller en tant qu'expert ?" },
+      { c:"mo", critere:"Style de management", q:"Décrivez votre style de management en trois mots, avec un exemple pour chacun." },
+      { c:"mo", critere:"Alignement entreprise", q:"Pourquoi cette équipe et cette entreprise ?" },
+      { c:"mo", critere:"Développement de l'équipe", q:"Comment développez-vous les compétences des membres de votre équipe ?" },
+      { c:"mo", critere:"Plan des 90 jours", q:"Quel serait votre plan pour les quatre-vingt-dix premiers jours ?" }
+    ]},
+    alternant: { nom: "Alternant / Premier emploi", questions: [
+      { c:"sf", critere:"Bases du métier", q:"Qu'avez-vous appris de plus utile dans votre formation, et comment l'avez-vous mis en pratique ?" },
+      { c:"sf", critere:"Outils", q:"Quels outils maîtrisez-vous — logiciels, plateformes — et lequel avez-vous appris le plus récemment ?" },
+      { c:"sf", critere:"Organisation", q:"Comment gérez-vous vos études, vos projets et vos délais en même temps ?" },
+      { c:"sf", critere:"Apprentissage rapide", q:"Décrivez une compétence que vous avez apprise seul, rapidement, et comment vous vous y êtes pris." },
+      { c:"sf", critere:"Travail en équipe", q:"Racontez un projet de groupe : votre rôle, les difficultés, le résultat." },
+      { c:"se", critere:"Curiosité", q:"Quelle est la dernière chose que vous avez apprise par curiosité, en dehors des cours ?" },
+      { c:"se", critere:"Fiabilité", q:"Que faites-vous quand on vous demande quelque chose que vous ne savez pas faire ?" },
+      { c:"se", critere:"Communication", q:"Comment posez-vous une question quand vous ne comprenez pas une consigne ?" },
+      { c:"se", critere:"Humilité", q:"Décrivez une erreur que vous avez faite, et ce qu'elle vous a appris." },
+      { c:"se", critere:"Envie d'apprendre", q:"Qu'avez-vous hâte d'apprendre dans ce poste en particulier ?" },
+      { c:"mo", critere:"Choix de filière", q:"Pourquoi avoir choisi cette filière, et qu'est-ce qui vous conforte dans ce choix ?" },
+      { c:"mo", critere:"Attentes de l'alternance", q:"Qu'attendez-vous d'une alternance, et qu'apporterez-vous à l'entreprise en échange ?" },
+      { c:"mo", critere:"Alignement entreprise", q:"Pourquoi cette entreprise pour votre alternance ?" },
+      { c:"mo", critere:"Objectifs de formation", q:"Quels sont vos objectifs de formation pour cette année ?" },
+      { c:"mo", critere:"Engagement", q:"Racontez un engagement — associatif, sportif, projet — qui montre votre sérieux." }
+    ]},
+    data: { nom: "Data analyst / Data scientist", questions: [
+      { c:"sf", critere:"Analyse de données", q:"Décrivez une analyse que vous avez menée de la question à la conclusion : méthode, données, résultat." },
+      { c:"sf", critere:"Modélisation", q:"Parlez-moi d'un modèle que vous avez construit : variables, validation, biais éventuels, usage final." },
+      { c:"sf", critere:"Visualisation", q:"Comment présentez-vous un résultat complexe à un public non technique ?" },
+      { c:"sf", critere:"Qualité des données", q:"Racontez une fois où des données sales vous ont induit en erreur : comment l'avez-vous détecté et corrigé ?" },
+      { c:"sf", critere:"Environnement et pipeline", q:"Décrivez votre environnement de travail data — outils, scripts, automatisations — et comment vous le gardez fiable." },
+      { c:"se", critere:"Communication des résultats", q:"Comment expliquez-vous une corrélation à un décideur qui veut une conclusion simple ?" },
+      { c:"se", critere:"Rigueur", q:"Comment vérifiez-vous qu'un résultat n'est pas un artefact — échantillon, saisonnalité, hasard ?" },
+      { c:"se", critere:"Curiosité", q:"Quelle question data vous a le plus intéressé récemment, même sans lien avec votre travail ?" },
+      { c:"se", critere:"Esprit critique", q:"Avez-vous déjà remis en question une demande ou un chiffre fourni par un collègue ? Racontez." },
+      { c:"se", critere:"Collaboration", q:"Décrivez une collaboration avec un métier non technique qui a produit un vrai impact." },
+      { c:"mo", critere:"Motivation pour la data", q:"Qu'est-ce qui vous plaît dans la donnée — comprendre, prédire, automatiser ?" },
+      { c:"mo", critere:"Projet marquant", q:"Quel projet data vous rend le plus fier, et quel impact a-t-il eu ?" },
+      { c:"mo", critere:"Alignement entreprise", q:"Pourquoi ce poste data dans cette entreprise ?" },
+      { c:"mo", critere:"Veille", q:"Comment suivez-vous les évolutions du domaine — machine learning, outils, bonnes pratiques ?" },
+      { c:"mo", critere:"Objectifs", q:"Quel impact business voulez-vous avoir avec la data dans douze mois ?" }
+    ]}
+  };
+
+  var ANTI_BIAS = [
+    { t: "Grille unique", d: "J'ai évalué ce candidat avec les mêmes questions et les mêmes critères que les autres candidats." },
+    { t: "Faits et exemples", d: "Chaque note repose sur des faits ou des exemples cités, pas sur une impression générale." },
+    { t: "Hors-sujet écarté", d: "Je n'ai accordé aucun poids à des éléments non professionnels : âge, genre, origine, apparence, situation familiale." },
+    { t: "Comparaison à la grille", d: "J'ai comparé ce candidat à la grille du poste, pas aux autres candidats de mémoire." },
+    { t: "Parole laissée", d: "J'ai laissé le candidat terminer ses réponses sans l'interrompre ni le guider vers une « bonne » réponse." },
+    { t: "Effet de halo", d: "J'ai vérifié qu'une qualité forte — ou un point faible — n'a pas masqué les autres critères." },
+    { t: "Relecture à froid", d: "Je relirai mes notes vingt-quatre heures plus tard avant de finaliser, en vérifiant que chaque note s'appuie sur un exemple." }
+  ];
+
+  var KEY = "entretien-ia-v1";
+  var state = { poste: "", nom: "", notes: {}, cotes: {}, ab: [] };
+  var $ = function (id) { return document.getElementById(id); };
+
+  /* ---------- Persistance locale ---------- */
+  function save() {
+    try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (err) {}
+  }
+  function load() {
+    try {
+      var raw = localStorage.getItem(KEY);
+      if (!raw) return;
+      var s = JSON.parse(raw);
+      if (s && typeof s === "object") {
+        state.poste = s.poste || "";
+        state.nom = s.nom || "";
+        state.notes = s.notes || {};
+        state.cotes = s.cotes || {};
+        state.ab = Array.isArray(s.ab) ? s.ab : [];
+      }
+    } catch (err) {}
+  }
+
+  /* ---------- Rendu des questions ---------- */
+  function renderQuestions() {
+    var poste = POSTES[state.poste];
+    var box = $("questions");
+    box.innerHTML = "";
+    var globalNum = 0;
+    GROUPES.forEach(function (g) {
+      var items = poste.questions.filter(function (q) { return q.c === g.id; });
+      var grp = document.createElement("div");
+      grp.className = "grp";
+      grp.id = "grp-" + g.id;
+      grp.innerHTML = '<div class="grp-head"><h3>' + g.nom + '</h3><span class="avg">Moyenne : <b id="avg-' + g.id + '">—</b> / 5</span></div>';
+      items.forEach(function (item, i) {
+        globalNum++;
+        var num = globalNum;
+        var note = state.notes[state.poste + "-" + num] || "";
+        var cote = state.cotes[state.poste + "-" + num] || "";
+        var q = document.createElement("div");
+        q.className = "q";
+        q.innerHTML =
+          '<div class="q-top">' +
+            '<div class="q-num">' + num + '</div>' +
+            '<div class="q-body">' +
+              '<span class="q-critere">' + item.critere + '</span>' +
+              '<div class="q-text">' + item.q + '</div>' +
+            '</div>' +
+          '</div>' +
+          '<div class="q-ctrl">' +
+            '<span class="rating-label">Note (1-5)</span>' +
+            '<select data-num="' + num + '" class="cote' + (cote ? " r" + cote : "") + '">' +
+              '<option value="">—</option>' +
+              '<option value="1"' + (cote === "1" ? " selected" : "") + '>1 · Non démontré</option>' +
+              '<option value="2"' + (cote === "2" ? " selected" : "") + '>2 · Partiel</option>' +
+              '<option value="3"' + (cote === "3" ? " selected" : "") + '>3 · Démontré avec réserves</option>' +
+              '<option value="4"' + (cote === "4" ? " selected" : "") + '>4 · Démontré</option>' +
+              '<option value="5"' + (cote === "5" ? " selected" : "") + '>5 · Maîtrisé, exemples à l\'appui</option>' +
+            '</select>' +
+            '<div class="note-input"><input type="text" data-note="' + num + '" placeholder="Note libre (exemple cité, observation…)" value="' + note.replace(/"/g, "&quot;") + '"></div>' +
+          '</div>';
+        grp.appendChild(q);
+      });
+      box.appendChild(grp);
+    });
+    bindQuestionEvents();
+    updateScores();
+    $("etape2").style.display = "block";
+    $("etape3").style.display = "block";
+    $("etape2").scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  function bindQuestionEvents() {
+    document.querySelectorAll("select.cote").forEach(function (sel) {
+      sel.addEventListener("change", function () {
+        var num = sel.getAttribute("data-num");
+        var v = sel.value;
+        sel.className = "cote" + (v ? " r" + v : "");
+        if (v) state.cotes[state.poste + "-" + num] = v;
+        else delete state.cotes[state.poste + "-" + num];
+        save();
+        updateScores();
+      });
+    });
+    document.querySelectorAll("input[data-note]").forEach(function (inp) {
+      inp.addEventListener("input", function () {
+        state.notes[state.poste + "-" + inp.getAttribute("data-note")] = inp.value;
+        save();
+      });
+    });
+  }
+
+  /* ---------- Anti-biais ---------- */
+  function renderAntiBias() {
+    var box = $("ab-list");
+    box.innerHTML = "";
+    ANTI_BIAS.forEach(function (item, i) {
+      var checked = state.ab.indexOf(i) !== -1;
+      var div = document.createElement("label");
+      div.className = "ab-item" + (checked ? " checked" : "");
+      div.innerHTML =
+        '<input type="checkbox" data-i="' + i + '"' + (checked ? " checked" : "") + '>' +
+        '<div><b>' + (i + 1) + '. ' + item.t + '</b><span>' + item.d + '</span></div>';
+      box.appendChild(div);
+    });
+    box.querySelectorAll("input[type=checkbox]").forEach(function (cb) {
+      cb.addEventListener("change", function () {
+        var i = parseInt(cb.getAttribute("data-i"), 10);
+        if (cb.checked) { if (state.ab.indexOf(i) === -1) state.ab.push(i); }
+        else { state.ab = state.ab.filter(function (x) { return x !== i; }); }
+        cb.closest(".ab-item").classList.toggle("checked", cb.checked);
+        save();
+        updateAntiBias();
+      });
+    });
+    updateAntiBias();
+  }
+
+  function updateAntiBias() {
+    $("ab-progress").textContent = "Vérifications : " + state.ab.length + "/7";
+    var warn = $("v-warn");
+    if (state.ab.length < 7) {
+      warn.innerHTML = "⚠️ Checklist anti-biais incomplète (" + state.ab.length + "/7) — validez les 7 vérifications avant de finaliser votre décision.";
+      warn.classList.add("visible");
+    } else {
+      warn.classList.remove("visible");
+    }
+  }
+
+  /* ---------- Score et verdict ---------- */
+  function groupValues(id) {
+    var vals = [];
+    POSTES[state.poste].questions.forEach(function (q, i) {
+      if (q.c === id) {
+        var v = parseInt(state.cotes[state.poste + "-" + (i + 1)], 10);
+        if (v >= 1 && v <= 5) vals.push(v);
+      }
+    });
+    return vals;
+  }
+
+  function fmt(n) { return (Math.round(n * 10) / 10).toFixed(1).replace(".", ","); }
+
+  function updateScores() {
+    if (!state.poste || !POSTES[state.poste]) return;
+    var total = [], nb = 0;
+    GROUPES.forEach(function (g) {
+      var vals = groupValues(g.id);
+      var avg = vals.length ? vals.reduce(function (a, b) { return a + b; }, 0) / vals.length : null;
+      var el = $("s-" + g.id), bar = $("b-" + g.id), ael = $("avg-" + g.id);
+      el.textContent = avg !== null ? fmt(avg) : "—";
+      bar.style.width = avg !== null ? (avg / 5 * 100) + "%" : "0%";
+      if (ael) ael.textContent = avg !== null ? fmt(avg) : "—";
+      total = total.concat(vals);
+    });
+    nb = total.length;
+    var global = nb ? total.reduce(function (a, b) { return a + b; }, 0) / nb : null;
+    var vTitle = $("v-title"), vText = $("v-text");
+
+    if (nb === 0) {
+      vTitle.textContent = "En attente de notes…";
+      vText.textContent = "Notez les critères de la grille ci-dessus : le score se met à jour automatiquement.";
+      return;
+    }
+    if (nb < 15) {
+      vTitle.textContent = "Score partiel : " + fmt(global) + " / 5 (" + nb + " critères notés sur 15)";
+      vText.textContent = "Complétez la grille avant de décider — un score partiel ne suffit pas à trancher.";
+      return;
+    }
+    vTitle.textContent = fmt(global) + " / 5";
+    if (global >= 4.2) {
+      vText.textContent = "Verdict : candidat à retenir. Profil solide sur l'ensemble des critères, avec des exemples concrets à l'appui. Passez à l'étape suivante dans les sept jours pour garder le rythme.";
+    } else if (global >= 3.4) {
+      vText.textContent = "Verdict : à approfondir. Profil intéressant avec des points de vigilance. Organisez un second entretien ciblé sur les critères les plus faibles, et faites vérifier les compétences clés par un pair.";
+    } else if (global >= 2.6) {
+      vText.textContent = "Verdict : décision prudente. Écart significatif sur plusieurs critères. Sauf contexte particulier — fort potentiel, reconversion assumée — privilégiez un profil mieux aligné sur la grille.";
+    } else {
+      vText.textContent = "Verdict : écart important. Le profil ne démontre pas les compétences attendues pour ce poste. Candidature à écarter, avec un retour constructif et respectueux.";
+    }
+  }
+
+  /* ---------- Rapport PDF ---------- */
+  function buildReport() {
+    var rep = $("print-report");
+    if (!state.poste || !POSTES[state.poste]) { rep.innerHTML = ""; return; }
+    var poste = POSTES[state.poste];
+    var nom = state.nom || "Candidat non renseigné";
+    var date = new Date().toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" });
+    var total = [], nb = 0;
+    var rows = "";
+    poste.questions.forEach(function (q, i) {
+      var num = i + 1;
+      var v = parseInt(state.cotes[state.poste + "-" + num], 10);
+      if (v >= 1 && v <= 5) { total.push(v); nb++; }
+      var note = state.notes[state.poste + "-" + num] || "—";
+      rows += '<tr>' +
+        '<td style="padding:6px 8px;border:1px solid #ccc;font-size:11px;width:28px;">' + num + '</td>' +
+        '<td style="padding:6px 8px;border:1px solid #ccc;font-size:11px;width:110px;"><b>' + q.critere + '</b><br><span style="color:#666;">' + (q.c === "sf" ? "Savoir-faire" : q.c === "se" ? "Savoir-être" : "Motivation") + '</span></td>' +
+        '<td style="padding:6px 8px;border:1px solid #ccc;font-size:11px;">' + q.q + '</td>' +
+        '<td style="padding:6px 8px;border:1px solid #ccc;font-size:11px;text-align:center;width:34px;">' + (v ? v : "—") + '</td>' +
+        '<td style="padding:6px 8px;border:1px solid #ccc;font-size:11px;">' + note + '</td>' +
+      '</tr>';
+    });
+    var global = nb ? total.reduce(function (a, b) { return a + b; }, 0) / nb : null;
+    var verdict = "";
+    if (nb === 0) verdict = "Aucune note — grille non renseignée.";
+    else if (nb < 15) verdict = "Score partiel (" + nb + "/15 notés) : " + (global !== null ? fmt(global) : "—") + " / 5 — compléter avant décision.";
+    else if (global >= 4.2) verdict = "Candidat à retenir (" + fmt(global) + " / 5)";
+    else if (global >= 3.4) verdict = "À approfondir (" + fmt(global) + " / 5)";
+    else if (global >= 2.6) verdict = "Décision prudente (" + fmt(global) + " / 5)";
+    else verdict = "Écart important (" + fmt(global) + " / 5)";
+
+    var abRows = "";
+    ANTI_BIAS.forEach(function (item, i) {
+      var ok = state.ab.indexOf(i) !== -1;
+      abRows += '<tr><td style="padding:4px 8px;border:1px solid #ccc;font-size:11px;width:24px;">' + (ok ? "✔" : "☐") + '</td>' +
+        '<td style="padding:4px 8px;border:1px solid #ccc;font-size:11px;"><b>' + item.t + '</b> — ' + item.d + '</td></tr>';
+    });
+
+    rep.innerHTML =
+      '<div style="max-width:760px;margin:0 auto;font-family:Georgia,\'Times New Roman\',serif;color:#222;">' +
+        '<div style="border-bottom:3px solid #800020;padding-bottom:10px;margin-bottom:18px;">' +
+          '<div style="font-size:22px;font-weight:bold;color:#800020;">Entretien IA</div>' +
+          '<div style="font-size:12px;color:#666;">Rapport d\'entretien structuré — grille unique, notation 1-5, checklist anti-biais</div>' +
+        '</div>' +
+        '<h2 style="font-size:20px;color:#800020;margin:0 0 12px;">Compte-rendu d\'entretien</h2>' +
+        '<table style="border-collapse:collapse;width:100%;margin-bottom:16px;font-family:Arial,sans-serif;">' +
+          '<tr><td style="padding:3px 8px;font-size:12px;width:130px;"><b>Candidat</b></td><td style="padding:3px 8px;font-size:12px;">' + nom + '</td></tr>' +
+          '<tr><td style="padding:3px 8px;font-size:12px;"><b>Poste</b></td><td style="padding:3px 8px;font-size:12px;">' + poste.nom + '</td></tr>' +
+          '<tr><td style="padding:3px 8px;font-size:12px;"><b>Date</b></td><td style="padding:3px 8px;font-size:12px;">' + date + '</td></tr>' +
+          '<tr><td style="padding:3px 8px;font-size:12px;"><b>Verdict</b></td><td style="padding:3px 8px;font-size:12px;"><b>' + verdict + '</b></td></tr>' +
+        '</table>' +
+        '<h3 style="font-size:14px;color:#800020;margin:0 0 8px;">Grille de notation (1-5 par critère)</h3>' +
+        '<table style="border-collapse:collapse;width:100%;margin-bottom:16px;font-family:Arial,sans-serif;">' +
+          '<tr style="background:#f0e6d6;">' +
+            '<th style="padding:6px 8px;border:1px solid #ccc;font-size:11px;text-align:left;">N°</th>' +
+            '<th style="padding:6px 8px;border:1px solid #ccc;font-size:11px;text-align:left;">Critère</th>' +
+            '<th style="padding:6px 8px;border:1px solid #ccc;font-size:11px;text-align:left;">Question</th>' +
+            '<th style="padding:6px 8px;border:1px solid #ccc;font-size:11px;text-align:center;">Note</th>' +
+            '<th style="padding:6px 8px;border:1px solid #ccc;font-size:11px;text-align:left;">Observations</th>' +
+          '</tr>' + rows +
+        '</table>' +
+        '<h3 style="font-size:14px;color:#800020;margin:0 0 8px;">Checklist anti-biais (' + state.ab.length + '/7)</h3>' +
+        '<table style="border-collapse:collapse;width:100%;margin-bottom:18px;font-family:Arial,sans-serif;">' + abRows + '</table>' +
+        '<table style="border-collapse:collapse;width:100%;font-family:Arial,sans-serif;">' +
+          '<tr><td style="padding:3px 8px;font-size:12px;width:50%;">Recruteur : ______________________</td>' +
+          '<td style="padding:3px 8px;font-size:12px;">Date : ______________________</td></tr>' +
+          '<tr><td style="padding:3px 8px;font-size:12px;">Signature : ______________________</td><td></td></tr>' +
+        '</table>' +
+        '<div style="margin-top:20px;font-size:10px;color:#888;border-top:1px solid #ccc;padding-top:8px;">Généré avec Entretien IA — un entretien structuré, noté sans biais, en 30 minutes. Les notes reposent sur des exemples concrets, jamais sur une impression générale.</div>' +
+      '</div>';
+  }
+
+  $("btn-pdf").addEventListener("click", function () {
+    buildReport();
+    window.print();
+  });
+  window.addEventListener("beforeprint", buildReport);
+
+  /* ---------- Boutons ---------- */
+  $("btn-generer").addEventListener("click", function () {
+    var poste = $("p-poste").value;
+    if (!poste || !POSTES[poste]) { alert("Choisissez d'abord un poste dans la liste."); return; }
+    state.poste = poste;
+    state.nom = $("p-nom").value.trim();
+    save();
+    timerReset();
+    renderQuestions();
+  });
+  $("p-poste").addEventListener("change", function () {
+    var poste = this.value;
+    if (poste && POSTES[poste]) {
+      state.poste = poste;
+      save();
+    }
+  });
+  $("p-nom").addEventListener("input", function () { state.nom = this.value.trim(); save(); });
+
+  $("btn-reset").addEventListener("click", function () {
+    if (!confirm("Réinitialiser la grille et les notes de cet entretien ?")) return;
+    state = { poste: state.poste, nom: state.nom, notes: {}, cotes: {}, ab: [] };
+    save();
+    if (state.poste && POSTES[state.poste]) { renderQuestions(); renderAntiBias(); }
+    $("p-nom").value = state.nom;
+  });
+
+  /* ---------- Minuteur 30 minutes ---------- */
+  var DUREE = 30 * 60;
+  var timerLeft = DUREE, timerId = null, timerRunning = false;
+
+  function timerFmt(s) {
+    var m = Math.floor(s / 60), sec = s % 60;
+    return (m < 10 ? "0" : "") + m + ":" + (sec < 10 ? "0" : "") + sec;
+  }
+  function timerRender() {
+    var d = $("timer-digits");
+    if (!d) return;
+    d.textContent = timerFmt(timerLeft);
+    d.classList.toggle("timeout", timerLeft === 0);
+  }
+  function timerStop() {
+    if (timerId) { clearInterval(timerId); timerId = null; }
+    timerRunning = false;
+    var b = $("timer-start");
+    if (b) b.textContent = "Démarrer";
+  }
+  function timerBeep() {
+    try {
+      var AC = window.AudioContext || window.webkitAudioContext;
+      if (!AC) return;
+      var ctx = new AC();
+      var o = ctx.createOscillator(), g = ctx.createGain();
+      o.connect(g); g.connect(ctx.destination);
+      o.frequency.value = 880;
+      g.gain.setValueAtTime(0.001, ctx.currentTime);
+      g.gain.exponentialRampToValueAtTime(0.25, ctx.currentTime + 0.02);
+      g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.7);
+      o.start(); o.stop(ctx.currentTime + 0.75);
+    } catch (err) {}
+  }
+  function timerStart() {
+    if (timerLeft <= 0) timerLeft = DUREE;
+    if (timerRunning) { timerStop(); return; }
+    timerRunning = true;
+    var b = $("timer-start");
+    if (b) b.textContent = "Pause";
+    timerRender();
+    timerId = setInterval(function () {
+      timerLeft--;
+      timerRender();
+      if (timerLeft <= 0) {
+        timerStop();
+        timerRender();
+        timerBeep();
+        var v = $("v-title");
+        if (v && v.textContent.indexOf("En attente") === -1) v.textContent = "Temps écoulé — 30 minutes";
+      }
+    }, 1000);
+  }
+  function timerReset() {
+    timerStop();
+    timerLeft = DUREE;
+    timerRender();
+  }
+  $("timer-start").addEventListener("click", timerStart);
+  $("timer-reset").addEventListener("click", timerReset);
+
+  /* ---------- Init ---------- */
+  load();
+  if (state.poste && POSTES[state.poste]) {
+    $("p-poste").value = state.poste;
+    $("p-nom").value = state.nom;
+    renderQuestions();
+  }
+  renderAntiBias();
+  timerRender();
+
+  /* ---------- Reveal ---------- */
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) { e.target.classList.add("visible"); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll(".reveal").forEach(function (el) { io.observe(el); });
+})();
+</script>
+<script src="chatbot-config.js"></script>
+<script src="chatbot.js"></script>
+</body>
+</html>
