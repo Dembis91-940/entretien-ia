@@ -273,7 +273,118 @@
     .reveal { opacity:1; transform:none; transition:none; }
   }
 </style>
-</head>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style id="futur-v3">
+/* ============================================================
+   FUTUR V3 — GRENAT NÉON — entretien-ia
+   2026-08-20
+   Overlay design : palette futuriste, glassmorphism, animations.
+   La structure HTML, les outils, EmailJS, chatbots et prix sont
+   intégralement préservés (ce bloc ne fait que styler).
+   ============================================================ */
+:root{
+  --bg: #12060B;
+  --bg-soft: #1D0A12;
+  --ink: #FBEFF3;
+  --ink-dim: #C9A9B4;
+  --ink-faint: #9E7C88;
+  --line: rgba(255,255,255,.1);
+  --line-gold: rgba(232,193,90,.35);
+  --grenat: #8A1C3F;
+  --grenat-deep: #4A0D21;
+  --grenat-soft: rgba(255,77,125,.22);
+  --gold: #E8C15A;
+  --gold-soft: rgba(232,193,90,.16);
+  --surface: rgba(255,255,255,.035);
+  --sans: 'Inter',sans-serif;
+  --serif: 'Playfair Display',serif;
+  --shadow: 0 20px 60px rgba(0,0,0,.5);
+}
+html{scroll-behavior:smooth}
+body{
+  background-color:#12060B !important;
+  background-image:radial-gradient(rgba(255,255,255,.04) 1px,transparent 1px) !important;
+  background-size:34px 34px !important;
+  color:#FBEFF3 !important;
+  font-family:'Inter',sans-serif !important;
+}
+h1,h2,h3,h4,h5,h6{
+  font-family:'Playfair Display',serif !important;
+  letter-spacing:-.015em;
+  color:#FBEFF3 !important;
+}
+p,li,td,label{color:#C9A9B4}
+a{transition:color .3s ease}
+::selection{background:#FF4D7D40;color:#FBEFF3}
+::-webkit-scrollbar{width:10px}
+::-webkit-scrollbar-track{background:#12060B}
+::-webkit-scrollbar-thumb{background:linear-gradient(180deg,#FF4D7D,#8A1C3F);border-radius:8px;border:2px solid #12060B}
+
+@keyframes f3float{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(4vmax,-3vmax) scale(1.07)}66%{transform:translate(-3vmax,3vmax) scale(.96)}}
+@keyframes f3shimmer{0%{background-position:0% 50%}100%{background-position:200% 50%}}
+@keyframes f3pulse{0%,100%{box-shadow:0 0 0 0 rgba(255,77,125,.4)}50%{box-shadow:0 0 0 14px transparent}}
+@keyframes f3gradmove{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+@keyframes f3floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+
+.kicker,.price,.lead{
+  background:linear-gradient(90deg,#FF4D7D,#E8C15A,#8A1C3F);
+  background-size:200% auto;
+  -webkit-background-clip:text;background-clip:text;
+  color:transparent !important;
+  animation:f3shimmer 7s linear infinite;
+}
+.offer,.faq-item,.step,.featured,.price,.pain,.steps,.tool-band{
+  background:rgba(32,10,20,.55) !important;
+  backdrop-filter:blur(16px) saturate(140%);
+  -webkit-backdrop-filter:blur(16px) saturate(140%);
+  border:1px solid rgba(255,120,160,.14) !important;
+  border-radius:18px;
+  box-shadow:0 8px 32px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.06);
+  transition:transform .35s ease, box-shadow .35s ease, border-color .35s ease;
+}
+.offer,.faq-item,.step,.featured,.price,.pain,.steps,.tool-band:hover{
+  transform:translateY(-4px);
+  border-color:#FF4D7D66 !important;
+  box-shadow:0 12px 42px rgba(255,77,125,.4);
+}
+.nav,nav,header{
+  background:rgba(32,10,20,.55) !important;
+  backdrop-filter:blur(18px) saturate(150%);
+  -webkit-backdrop-filter:blur(18px) saturate(150%);
+  border-bottom:1px solid rgba(255,120,160,.14);
+}
+.hero{
+  background:
+    radial-gradient(900px 420px at 12% -10%, rgba(255,77,125,.14), transparent 60%), radial-gradient(760px 460px at 88% 12%, rgba(232,193,90,.10), transparent 62%), linear-gradient(165deg,#1E0A13 0%,#12060B 60%,#17080E 100%) !important;
+}
+.btn{letter-spacing:.02em;font-weight:600;transition:all .3s ease;border-radius:12px}
+.btn:hover{transform:translateY(-2px)}
+.btn-grenat{
+  background:linear-gradient(135deg,#FF4D7D,#E8C15A,#8A1C3F) !important;
+  background-size:200% 200%;
+  animation:f3gradmove 6s ease infinite;
+  box-shadow:0 6px 24px rgba(255,77,125,.4);
+  border:none !important;
+  color:#FFFFFF !important;
+}
+.btn-grenat:hover{box-shadow:0 10px 36px rgba(255,77,125,.4);transform:translateY(-3px)}
+.btn-gold,.btn-ghost{
+  background:rgba(255,255,255,.05) !important;
+  border:1px solid rgba(255,120,160,.14) !important;
+  color:#FBEFF3 !important;
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+}
+.btn-gold,.btn-ghost:hover{border-color:#FF4D7D88 !important;box-shadow:0 6px 22px rgba(255,77,125,.4)}
+.kicker{text-transform:uppercase;letter-spacing:.16em;font-weight:700}
+.arrow{animation:f3floaty 6s ease-in-out infinite}
+.f3-reveal{opacity:0;transform:translateY(26px);transition:opacity .8s cubic-bezier(.22,.61,.36,1),transform .8s cubic-bezier(.22,.61,.36,1)}
+.f3-reveal.f3-in{opacity:1;transform:translateY(0)}
+#f3-progress{position:fixed;top:0;left:0;height:3px;z-index:9999;background:linear-gradient(90deg,#FF4D7D,#E8C15A,#8A1C3F);width:0;box-shadow:0 0 12px rgba(255,77,125,.4);border-radius:0 3px 3px 0}
+
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+</style></head>
 <body>
 
 <nav>
@@ -644,5 +755,26 @@
 </script>
 <script src="chatbot-config.js"></script>
 <script src="chatbot.js"></script>
-</body>
+<script id="f3-script">
+(function(){
+  if(document.getElementById('f3-progress'))return;
+  var p=document.createElement('div');p.id='f3-progress';document.body.appendChild(p);
+  var o=document.createElement('div');
+  o.style.cssText='position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden';
+  var orbs=["rgba(255,77,125,.20)","rgba(232,193,90,.16)","rgba(138,28,63,.4)"];
+  var pos=[['-15vmax','-15vmax','55vmax','55vmax','18s','normal'],['-12vmax','30%','45vmax','45vmax','24s','reverse'],['30%','-18vmax','40vmax','40vmax','21s','normal']];
+  for(var i=0;i<3;i++){var d=document.createElement('div');d.style.cssText='position:absolute;border-radius:50%;filter:blur(90px);opacity:.5;animation:f3float '+pos[i][4]+' ease-in-out infinite '+pos[i][5];
+    d.style.left=pos[i][0];d.style.top=pos[i][1];d.style.width=pos[i][2];d.style.height=pos[i][3];
+    d.style.background='radial-gradient(circle,'+orbs[i]+',transparent 60%)';o.appendChild(d);}
+  document.body.appendChild(o);
+  addEventListener('scroll',function(){var h=document.documentElement;var sc=(h.scrollTop||document.body.scrollTop);var m=h.scrollHeight-h.clientHeight;p.style.width=(m>0?(sc/m*100):0)+'%';},{passive:true});
+  var sel=null;
+  if(!sel)return;
+  var els=document.querySelectorAll(sel);
+  if(!('IntersectionObserver' in window)){for(var i=0;i<els.length;i++)els[i].classList.add('f3-in');return;}
+  for(var i=0;i<els.length;i++)els[i].classList.add('f3-reveal');
+  var io=new IntersectionObserver(function(es){es.forEach(function(en){if(en.isIntersecting){en.target.classList.add('f3-in');io.unobserve(en.target);}});},{threshold:.1});
+  for(var i=0;i<els.length;i++)io.observe(els[i]);
+})();
+</script></body>
 </html>
