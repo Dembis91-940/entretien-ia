@@ -83,7 +83,7 @@
     border-bottom:1px solid var(--line);
   }
   .nav-in { display:flex; align-items:center; justify-content:space-between; padding:0.9rem 0; }
-  .logo { font-family:var(--serif); font-weight:700; font-size:1.3rem; color:var(--grenat); text-decoration:none; letter-spacing:.01em; }
+  .logo { font-family:var(--serif); font-weight:700; font-size:1.3rem; color:#fbeff3; text-decoration:none; letter-spacing:.01em; }
   .logo span { color:var(--gold); }
   .nav-links { display:flex; align-items:center; gap:1.6rem; }
   .nav-links a { color:var(--ink-dim); text-decoration:none; font-size:.9rem; font-weight:500; transition:color .2s; }
@@ -381,6 +381,22 @@ a{transition:color .3s ease}
 .f3-reveal{opacity:0;transform:translateY(26px);transition:opacity .8s cubic-bezier(.22,.61,.36,1),transform .8s cubic-bezier(.22,.61,.36,1)}
 .f3-reveal.f3-in{opacity:1;transform:translateY(0)}
 #f3-progress{position:fixed;top:0;left:0;height:3px;z-index:9999;background:linear-gradient(90deg,#FF4D7D,#E8C15A,#8A1C3F);width:0;box-shadow:0 0 12px rgba(255,77,125,.4);border-radius:0 3px 3px 0}
+/* ---------- Correctifs contraste AA (audit 2026-08-20) ---------- */
+/* (a) .nb (badges hero-note) : grenat sur sombre 2.19 → gold */
+.hero-note .nb{color:#E8C15A !important}
+/* (b) labels formulaire : grenat sur sombre 2.19 → ink-dim */
+.f label{color:#C9A9B4 !important}
+/* (c) nav-cta : texte éclairci → #FBEFF3 (8.08:1 sur grenat) */
+.nav-cta{color:#FBEFF3 !important}
+/* (d) .price : le fond glass (rgba .55) écrasait le dégradé bgclip:text → restauration */
+.price{background:linear-gradient(90deg,#FF4D7D,#E8C15A,#8A1C3F) !important;-webkit-background-clip:text !important;background-clip:text !important;color:transparent !important}
+/* Emphases grenat sur fond sombre (2.19:1) → gold */
+h1 em, h2 em, .quote p em, .stat b { color:#E8C15A !important; }
+/* Promesse (grenat-deep #4A0D21 sur sombre = 1.30) → gold */
+.promesse { color:#E8C15A !important; }
+/* Message succès commande : #6b4f00 sur fond sombre = 1.56 → gold */
+.success { color:#E8C15A !important; }
+.success b { color:#E8C15A !important; }
 
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 
