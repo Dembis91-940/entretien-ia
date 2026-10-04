@@ -9,3 +9,6 @@ secrets*
 *.xlsx
 leads*
 .DS_Store
+
+# Livrables payants — hors dépôt public (livraison par email)
+checklist-entretien.pdf
